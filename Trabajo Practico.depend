@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1631981394 source:c:\users\mauro\documents\facultad\algoritmos y estructuras de datos\cilindro\trabajo practico\main.cpp
+	<iostream>
+	"Vinos.h"
+
+1631981419 c:\users\mauro\documents\facultad\algoritmos y estructuras de datos\cilindro\trabajo practico\vinos.h
+	<string>
+
+1631981374 source:c:\users\mauro\documents\facultad\algoritmos y estructuras de datos\cilindro\trabajo practico\vinos.cpp
+	"Vinos.h"
+	<iostream>
+
+1631981394 source:c:\users\mauro\documents\facultad\algoritmos y estructuras de datos\trabajo practico empresa de vinos\trabajo practico\main.cpp
+	<iostream>
+	"Vinos.h"
+
+1631981419 c:\users\mauro\documents\facultad\algoritmos y estructuras de datos\trabajo practico empresa de vinos\trabajo practico\vinos.h
+	<string>
+
+1631981577 source:c:\users\mauro\documents\facultad\algoritmos y estructuras de datos\trabajo practico empresa de vinos\trabajo practico\vinos.cpp
+	"Vinos.h"
+	<iostream>
+
