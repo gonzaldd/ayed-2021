@@ -2,57 +2,103 @@
 #include <algorithm>
 #include "loadMembresia.h"
 
-struct Membresia {
-    std::string id_usuario;
-    std::string mes;
-    std::string anio;
-    std::string id_vino_1;
-    std::string id_vino_2;
-    std::string id_vino_3;
-    std::string id_vino_4;
-    std::string id_vino_5;
-    std::string id_vino_6;
-};
+using namespace std;
+
+//Devuelve Membresia de una lista anidada
+Membresia* getInnerMembresia(Nodo *nodo) {
+    Lista *innerList = (Lista*)nodo->dato;
+    Membresia *firstMembresia = (Membresia*)(ELEMENTO*)((Nodo*)innerList->inicio)->dato;
+
+    return firstMembresia;
+}
 
 
-void readFile(std::string path, Lista &lista) {
+//Crea una nueva lista e inserta una membresia al final
+Lista* createNewYearList(Membresia *membresia, Lista* lista) {
+    Lista *listaAnio = crearLista();
+    insertarElementoAlFinalDeLaLista(listaAnio, membresia);
+
+    return listaAnio;
+}
+
+
+
+void readFileAndLoad(std::string path, Lista *lista) {
     std::ifstream archivo(path.c_str());
     std::string linea;
 
     while (getline(archivo, linea)) {
-        std::string * valores = splitStrByChar(linea, "-");
-        std::cout << valores[1] << "  " << valores[2] << std::endl;
+        std::string *valores = splitStrByChar(linea, "-");
 
-        //todo:
         //crear membresia
-        //meterla en la lista correspondiente
-    };
+        Membresia *membresia = new Membresia();
 
+        membresia->id_usuario = valores[0];
+        membresia->mes = valores[1];
+        membresia->anio = valores[2];
+        membresia->id_vino_1 = valores[3];
+        membresia->id_vino_2 = valores[4];
+        membresia->id_vino_3 = valores[5];
+        membresia->id_vino_4 = valores[6];
+        membresia->id_vino_4 = valores[7];
+
+
+        if(listaEstaVacia(lista)) {
+            Lista *yearList = createNewYearList(membresia, lista);
+            insertarElementoAlFinalDeLaLista(lista, yearList);
+        } else {
+            Nodo *iterateList = (Nodo*)lista->inicio;
+            bool insertado = false;
+
+            while(iterateList && !insertado) {
+                //Si coincide el año, se inserta en esa lista y sale del bucle
+                if(membresia->anio.compare(getInnerMembresia(iterateList)->anio) == 0) {
+                    Lista *innerList = (Lista*)iterateList->dato;
+                    insertarElementoAlFinalDeLaLista(innerList, membresia);
+                    insertado = true;
+                }
+                iterateList = iterateList->siguiente;
+            }
+
+            //Si no se produce un insert, crea una nueva lista para ese año y lo agrega a al listado de membresias
+            if(!insertado) {
+                Lista *yearList = createNewYearList(membresia, lista);
+                insertarElementoAlFinalDeLaLista(lista, yearList);
+            }
+        }
+    }
 }
 
 
 //return [id_usuario, mes, anio, id_vino_1, id_vino2, ...]
 std::string* splitStrByChar(std::string str, std::string del) {
-    int start = 0;
-    int end = str.find(del);
+    int start;
+    int endStr;
     int position = 0;
-    //array que contiene los datos separados
-    std::string* values = new std::string[9];
-
     //limpio los datos de espacios, tabs & ;
     str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
     str.erase(std::remove(str.begin(), str.end(), '\t'), str.end());
     str.erase(std::remove(str.begin(), str.end(), ';'), str.end());
 
+    start = 0;
+    endStr = str.find(del);
+    //array que contiene los datos separados
+    std::string* values = new std::string[9];
+
     //Separo los datos por el caracter del param del
-    while (end != -1) {
-        values[position] = str.substr(start, end - start);
-        start = end + del.size();
-        end = str.find(del, start);
+    while (endStr != -1) {
+        values[position] = str.substr(start, endStr - start);
+        start = endStr + del.size();
+        endStr = str.find(del, start);
         position++;
     }
-    values[8] = str.substr(start, end - start);
+    values[8] = str.substr(start, endStr - start);
+
+    /*for(int i = 0; i< 9; i++) {
+        std::cout << values[i] << " " << std::endl;
+        if(i == 9)
+            cout << "" << endl;
+    }*/
 
     return values;
 }
-

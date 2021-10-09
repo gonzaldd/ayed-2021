@@ -1,7 +1,19 @@
 #ifndef LOADMEMBRESIA_H_INCLUDED
 #define LOADMEMBRESIA_H_INCLUDED
-#include "Lista.h"
 #include <iostream>
+#include "ED/lista.h"
+
+struct Membresia {
+    std::string id_usuario;
+    std::string mes;
+    std::string anio;
+    std::string id_vino_1;
+    std::string id_vino_2;
+    std::string id_vino_3;
+    std::string id_vino_4;
+    std::string id_vino_5;
+    std::string id_vino_6;
+};
 
 /*
   pre : lista fue creada con crearLista().
@@ -11,7 +23,7 @@
   path : Ubicación del archivo.
   lista : lista donde se almacenaran los datos.
 */
-void readFile(std::string path, Lista &lista);
+void readFileAndLoad(std::string path, Lista *lista);
 
 /*
   pre : str debe contener los datos necesarios para cargar una membresia.
@@ -22,5 +34,7 @@ void readFile(std::string path, Lista &lista);
   return Array[8] string con los datos de la membresia
 */
 std::string* splitStrByChar(std::string str, std::string del);
+
+Membresia* getInnerMembresia(Nodo *nodo);
 
 #endif // LOADMEMBRESIA_H_INCLUDED
