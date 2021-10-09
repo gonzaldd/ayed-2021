@@ -7,7 +7,7 @@ using namespace std;
 //Devuelve Membresia de una lista anidada
 Membresia* getInnerMembresia(Nodo *nodo) {
     Lista *innerList = (Lista*)nodo->dato;
-    Membresia *firstMembresia = (Membresia*)(ELEMENTO*)((Nodo*)innerList->inicio)->dato;
+    Membresia *firstMembresia = (Membresia*)innerList->inicio->dato;
 
     return firstMembresia;
 }
@@ -40,8 +40,8 @@ void readFileAndLoad(std::string path, Lista *lista) {
         membresia->id_vino_2 = valores[4];
         membresia->id_vino_3 = valores[5];
         membresia->id_vino_4 = valores[6];
-        membresia->id_vino_4 = valores[7];
-
+        membresia->id_vino_5 = valores[7];
+        membresia->id_vino_6 = valores[8];
 
         if(listaEstaVacia(lista)) {
             Lista *yearList = createNewYearList(membresia, lista);

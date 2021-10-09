@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1633811236 source:/home/gonzalo/Ayed-2021/ayed-2021/main.cpp
+1633813071 source:/home/gonzalo/Ayed-2021/ayed-2021/main.cpp
 	"loadMembresia.h"
 
 1633545045 /home/gonzalo/Ayed-2021/ayed-2021/Lista.h
@@ -11,7 +11,7 @@
 	<iostream>
 	"ED/lista.h"
 
-1633811038 source:/home/gonzalo/Ayed-2021/ayed-2021/loadMembresia.cpp
+1633813004 source:/home/gonzalo/Ayed-2021/ayed-2021/loadMembresia.cpp
 	<fstream>
 	<algorithm>
 	"loadMembresia.h"
