@@ -32,8 +32,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="Lista.cpp" />
-		<Unit filename="Lista.h" />
+		<Unit filename="ED/Nodo/Nodo.cpp" />
+		<Unit filename="ED/Nodo/Nodo.h" />
+		<Unit filename="ED/lista.cpp" />
+		<Unit filename="ED/lista.h" />
+		<Unit filename="ED/pila.cpp" />
+		<Unit filename="ED/pila.h" />
 		<Unit filename="loadMembresia.cpp" />
 		<Unit filename="loadMembresia.h" />
 		<Unit filename="main.cpp" />
