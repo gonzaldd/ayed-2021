@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1633813071 source:/home/gonzalo/Ayed-2021/ayed-2021/main.cpp
+1634075358 source:/home/gonzalo/Ayed-2021/ayed-2021/main.cpp
 	"loadMembresia.h"
 
 1633545045 /home/gonzalo/Ayed-2021/ayed-2021/Lista.h
@@ -7,7 +7,7 @@
 1633476407 source:/home/gonzalo/Ayed-2021/ayed-2021/Lista.cpp
 	"Lista.h"
 
-1633811219 /home/gonzalo/Ayed-2021/ayed-2021/loadMembresia.h
+1634075328 /home/gonzalo/Ayed-2021/ayed-2021/loadMembresia.h
 	<iostream>
 	"ED/lista.h"
 
@@ -29,10 +29,10 @@
 	<iostream>
 	"Nodo.h"
 
-1633648266 /home/gonzalo/Ayed-2021/ayed-2021/ED/lista.h
+1634075210 /home/gonzalo/Ayed-2021/ayed-2021/ED/lista.h
 	"Nodo/Nodo.h"
 
-1633648266 /home/gonzalo/Ayed-2021/ayed-2021/ED/Nodo/Nodo.h
+1634075210 /home/gonzalo/Ayed-2021/ayed-2021/ED/Nodo/Nodo.h
 
 1633992446 source:/home/gonzalo/Desktop/ayed-2021/loadMembresia.cpp
 	<fstream>
@@ -64,5 +64,20 @@
 	"pila.h"
 
 1633992446 /home/gonzalo/Desktop/ayed-2021/ED/pila.h
+	"Nodo/Nodo.h"
+
+1634075210 source:/home/gonzalo/Ayed-2021/ayed-2021/ED/lista.cpp
+	<iostream>
+	"lista.h"
+
+1634075210 source:/home/gonzalo/Ayed-2021/ayed-2021/ED/Nodo/Nodo.cpp
+	<iostream>
+	"Nodo.h"
+
+1634075210 source:/home/gonzalo/Ayed-2021/ayed-2021/ED/pila.cpp
+	<iostream>
+	"pila.h"
+
+1634075210 /home/gonzalo/Ayed-2021/ayed-2021/ED/pila.h
 	"Nodo/Nodo.h"
 

@@ -37,4 +37,6 @@ std::string* splitStrByChar(std::string str, std::string del);
 
 Membresia* getInnerMembresia(Nodo *nodo);
 
+void showMembresiaList(Lista *lista);
+
 #endif // LOADMEMBRESIA_H_INCLUDED
