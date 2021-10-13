@@ -15,6 +15,11 @@ struct Membresia {
     std::string id_vino_6;
 };
 
+struct DatoRanking {
+    std::string id_vino;
+    int contador = 0;
+};
+
 /*
   pre : lista fue creada con crearLista().
   post: Si el path es correcto, se leera linea a linea para extraer sus datos,
@@ -33,10 +38,9 @@ void readFileAndLoad(std::string path, Lista *lista);
   del : Cadena que separa los datos de str.
   return Array[8] string con los datos de la membresia
 */
-std::string* splitStrByChar(std::string str, std::string del);
-
-Membresia* getInnerMembresia(Nodo *nodo);
 
 void showMembresiaList(Lista *lista);
+
+void rankingVinosUltimoAnio(Lista *listaMembresias);
 
 #endif // LOADMEMBRESIA_H_INCLUDED
