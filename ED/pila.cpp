@@ -2,7 +2,7 @@
 
 #include "pila.h"
 
-//Constructor de la pila:
+//-----------------------------------------------------------Constructor-------------------------------------------------------
 Pila* crearPila() {
 	Pila* p = new Pila();
 
@@ -12,12 +12,12 @@ Pila* crearPila() {
 	return p;
 }
 
-//Getters:
+//-------------------------------------------------------------Getter-----------------------------------------------------------
 int getCantidadDeElementosEnLaPila(Pila* pila) {
 	return pila->iTamanio_Pila;
 }
 
-//Funciones de la pila:
+//-----------------------------------------------------Funciones de la pila---------------------------------------------------
 void vaciarPila(Pila* &pila) {
 	vaciarLista(pila->inicio);
 	pila->iTamanio_Pila = 0;
