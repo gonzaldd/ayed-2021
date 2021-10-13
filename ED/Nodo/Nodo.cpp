@@ -2,6 +2,7 @@
 
 #include "Nodo.h"
 
+//-------------------------------------------------------Funciones---------------------------------------------------
 void insertarAlInicio(Nodo* &lista, ELEMENTO dato) {
 	Nodo* n = new Nodo();
 

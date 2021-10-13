@@ -2,6 +2,7 @@
 
 #include "lista.h"
 
+//-----------------------------------------------------------Constructor-------------------------------------------------------
 Lista* crearLista() {
 	Lista* l = new Lista();
 
@@ -11,11 +12,12 @@ Lista* crearLista() {
 	return l;
 }
 
+//-------------------------------------------------------------Getter-----------------------------------------------------------
 int getCantidadDeElementosEnLaLista(Lista* l) {
 	return l->iTamanio_Lista;
 }
 
-//Funciones de la lista:
+//-----------------------------------------------------Funciones de la lista---------------------------------------------------
 void vaciarLista(Lista*& l) {
 	vaciarLista(l->inicio);
 	l->iTamanio_Lista = 0;
