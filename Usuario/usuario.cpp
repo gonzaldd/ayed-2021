@@ -21,12 +21,22 @@ Usuario* crearUsuario(std::string sID, std::string sNombre, std::string sApellid
 void mostrarUsuario(Usuario* u) {
     std::cout << "ID: " << getID(u) << std::endl;
     std::cout << "\tNombre: " << getApellido(u->enNombre) << ", " << getNombre(u->enNombre) << std::endl;
-    std::cout << "\tDomicilio: " << getDireccion(u->edDomicilio) << ", " << getLocalidad(u->edDomicilio) << ", " << getProvincia(u->edDomicilio) << std::endl;
+
+    std::cout << "\tDomicilio: " << getDireccion(u->edDomicilio) << ", ";
+    if (getProvincia(u->edDomicilio) == "CABA Buenos Aires" || getProvincia(u->edDomicilio) == "Ciudad Autónoma de Buenos Aires" || getProvincia(u->edDomicilio) == "CABA" || getProvincia(u->edDomicilio) == "Ciudad de Buenos Aires") {
+        std::cout << getProvincia(u->edDomicilio) << std::endl;
+    } else
+        std::cout << getLocalidad(u->edDomicilio) << ", " << getProvincia(u->edDomicilio) << std::endl;
+
     std::cout << "\tEdad del usuario: " << getEdadUsuario(u) << std::endl;
     std::cout << LINEA << std::endl;
 }
 
 //---------------------------------------------------------------------------Setters----------------------------------------------------------------------------
+
+void setID(Usuario* u, std::string sID) {
+    u->sID = sID;
+}
 
 void setNombreUsuario(Usuario* u, std::string sDatoAModificar, void setDatoNombre(Nombre*, std::string)) {
     setDatoNombre(u->enNombre, sDatoAModificar);

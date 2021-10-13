@@ -8,6 +8,10 @@ struct Lista {
     int iTamanio_Lista;
 };
 
+/*
+    PRE:
+    POST:
+*/
 Lista* crearLista();
 
 int getCantidadDeElementosEnLaLista(Lista*);
