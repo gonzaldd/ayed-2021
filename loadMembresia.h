@@ -41,6 +41,6 @@ void readFileAndLoad(std::string path, Lista *lista);
 
 void showMembresiaList(Lista *lista);
 
-void rankingVinosUltimoAnio(Lista *listaMembresias);
+void rankingVinosUltimoAnio(Lista *listaAnioMembresias);
 
 #endif // LOADMEMBRESIA_H_INCLUDED

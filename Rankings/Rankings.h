@@ -1,4 +1,4 @@
-#ifndef RANKINGS_H_INCLUDED
+/*#ifndef RANKINGS_H_INCLUDED
 #define RANKINGS_H_INCLUDED
 #include "Vino.h"
 #include "Lista.h"
@@ -27,4 +27,4 @@ typedef struct BodegaStruct{
 void lstBodegas(Lista catalogo, Lista info);
 
 Bodega buscarBodega(Lista lista,char nombre[50]);
-#endif
+#endif*/

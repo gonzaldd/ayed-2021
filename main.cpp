@@ -9,7 +9,7 @@ int main() {
 
     readFileAndLoad("elecion_test.txt", listaMembresia);
 
-    //showMembresiaList(listaMembresia);
+    showMembresiaList(listaMembresia);
 
     rankingVinosUltimoAnio(listaMembresia);
 
