@@ -33,11 +33,6 @@ void mostrarUsuario(Usuario* u) {
 }
 
 //---------------------------------------------------------------------------Setters----------------------------------------------------------------------------
-
-void setID(Usuario* u, std::string sID) {
-    u->sID = sID;
-}
-
 void setNombreUsuario(Usuario* u, std::string sDatoAModificar, void setDatoNombre(Nombre*, std::string)) {
     setDatoNombre(u->enNombre, sDatoAModificar);
 }
