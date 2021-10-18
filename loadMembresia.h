@@ -15,6 +15,14 @@ struct Membresia {
     std::string id_vino_6;
 };
 
+std::string getIDDelUsuarioDeLaMembresia(Membresia*);
+std::string getIDVino1DeLaMembresia(Membresia*);
+std::string getIDVino2DeLaMembresia(Membresia*);
+std::string getIDVino3DeLaMembresia(Membresia*);
+std::string getIDVino4DeLaMembresia(Membresia*);
+std::string getIDVino5DeLaMembresia(Membresia*);
+std::string getIDVino6DeLaMembresia(Membresia*);
+
 /*
   pre : lista fue creada con crearLista().
   post: Si el path es correcto, se leera linea a linea para extraer sus datos,

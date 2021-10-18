@@ -1,29 +1,21 @@
 #ifndef MARKETING_H
 #define MARKETING_H
 
-struct GrupoEtario{
-    std::string sNombre_Del_Grupo_Etario;
-    int iEdad_Minima;
-    int iEdad_Maxima;
-    Lista* lIntegrantes;
+struct DatoVarietalPorGrupoEtario{
+    std::string sNombre_Del_Varietal;
+    Lista* menoresDe30;
+    Lista* entre30Y50;
+    Lista* mayoresDe50;
 };
 
-struct DatoRankingVarietalesPorGrupoEtario{
-    std::string sNombre_Del_Grupo_Etario;
-    int iContador;
-};
+//DatoVarietalPorGrupoEtario* crearDatoDeVarietal(std::string sNombre_Del_Varietal);
+//std::string getNombreDelVarietal(DatoVarietalPorGrupoEtario*);
 
+//void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPorGrupoEtario* lVarietales, Usuario* usuario);
 void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* lCatalogos);
+//void identificarVarietalDelVino(Membresia* membresia, std::string getIDVinoDeLaMembresia(Membresia* m), Lista* lUsuario, Lista* lCatalogos, Lista* &lVarietales);
 
-Lista* varietalesQueHay(Lista* lCatalogo);
-
-GrupoEtario* crearGrupoEtario(std::string, int iEdad_Minima, int iEdad_Maxima);
-std::string nombreDelGrupoEtario(GrupoEtario*);
-Lista* integrantesDelGrupoEtario(GrupoEtario*);
-
-void usuariosPorGrupoEtario(Lista* lUsuarios, GrupoEtario* &lGrupos_Etario1, GrupoEtario* &lGrupos_Etario2, GrupoEtario* &lGrupos_Etario3);
-
-void mostrarDatoMmebresiasXD(Lista*);
+//Lista* varietalesQueHay(Lista* lCatalogo);
 
 #endif /* MARKETING_H */
 

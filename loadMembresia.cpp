@@ -4,6 +4,34 @@
 
 using namespace std;
 
+std::string getIDDelUsuarioDeLaMembresia(Membresia* m){
+    return m->id_usuario;
+}
+
+std::string getIDVino1DeLaMembresia(Membresia* m){
+    return m->id_vino_1;
+}
+
+std::string getIDVino2DeLaMembresia(Membresia* m){
+    return m->id_vino_2;
+}
+
+std::string getIDVino3DeLaMembresia(Membresia* m){
+    return m->id_vino_3;
+}
+
+std::string getIDVino4DeLaMembresia(Membresia* m){
+    return m->id_vino_4;
+}
+
+std::string getIDVino5DeLaMembresia(Membresia* m){
+    return m->id_vino_5;
+}
+
+std::string getIDVino6DeLaMembresia(Membresia* m){
+    return m->id_vino_6;
+}
+
 //Devuelve Membresia de una lista anidada
 Membresia* getInnerMembresia(Nodo *nodo) {
     Lista *innerList = (Lista*)nodo->dato;

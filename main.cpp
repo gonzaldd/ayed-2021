@@ -1,5 +1,4 @@
 #include <iostream>
-#include <algorithm>
 
 #include "Usuario/usuario.h"
 #include "Vinos/Vinos.h"
@@ -27,12 +26,14 @@ int main(int argc, char** argv) {
     std::cout << std::endl << std::endl << std::endl << LINEA << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\t\t\tRANKINGS\n" << LINEA << std::endl << LINEA << std::endl << LINEA << std::endl;
     //rankingVarietalesPorGrupoEtario(lMembresia, lUsuarios, lCatalogo);
     
-    Lista* n = varietalesQueHay(lCatalogo);
+    /*Lista* n = varietalesQueHay(lCatalogo);
     ELEMENTO aux;
     for(int i=0; i<getCantidadDeElementosEnLaLista(n); i++){
         obtenerElementoDeLaLista(n, i, aux);
-        mostrarVino((eVinos*)aux);
-    }
+        std::cout << getNombreDelVarietal((DatoVarietalPorGrupoEtario*)aux) << std::endl;
+    }*/
+    
+    rankingVarietalesPorGrupoEtario(lMembresia, lUsuarios, lCatalogo);
     
     std::cout << std::endl;
     return EXIT_SUCCESS;
