@@ -46,11 +46,15 @@
 		<Unit filename="Usuario/Nombre/nombre.h" />
 		<Unit filename="Usuario/usuario.cpp" />
 		<Unit filename="Usuario/usuario.h" />
-		<Unit filename="archivoUsuario.cpp" />
-		<Unit filename="archivoUsuario.h" />
+		<Unit filename="Vinos/Vinos.cpp" />
+		<Unit filename="Vinos/Vinos.h" />
+		<Unit filename="cargarArchivosEnLista.cpp" />
+		<Unit filename="cargarArchivosEnLista.h" />
 		<Unit filename="loadMembresia.cpp" />
 		<Unit filename="loadMembresia.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="marketing.cpp" />
+		<Unit filename="marketing.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
