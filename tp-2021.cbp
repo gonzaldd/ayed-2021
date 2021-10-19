@@ -38,6 +38,16 @@
 		<Unit filename="ED/lista.h" />
 		<Unit filename="ED/pila.cpp" />
 		<Unit filename="ED/pila.h" />
+		<Unit filename="Rankings/Rankings.cpp" />
+		<Unit filename="Rankings/Rankings.h" />
+		<Unit filename="Usuario/Domicilio/domicilio.cpp" />
+		<Unit filename="Usuario/Domicilio/domicilio.h" />
+		<Unit filename="Usuario/Nombre/nombre.cpp" />
+		<Unit filename="Usuario/Nombre/nombre.h" />
+		<Unit filename="Usuario/usuario.cpp" />
+		<Unit filename="Usuario/usuario.h" />
+		<Unit filename="archivoUsuario.cpp" />
+		<Unit filename="archivoUsuario.h" />
 		<Unit filename="loadMembresia.cpp" />
 		<Unit filename="loadMembresia.h" />
 		<Unit filename="main.cpp" />

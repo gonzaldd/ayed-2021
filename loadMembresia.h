@@ -15,6 +15,7 @@ struct Membresia {
     std::string id_vino_6;
 };
 
+
 std::string getIDDelUsuarioDeLaMembresia(Membresia*);
 std::string getIDVino1DeLaMembresia(Membresia*);
 std::string getIDVino2DeLaMembresia(Membresia*);
@@ -22,6 +23,12 @@ std::string getIDVino3DeLaMembresia(Membresia*);
 std::string getIDVino4DeLaMembresia(Membresia*);
 std::string getIDVino5DeLaMembresia(Membresia*);
 std::string getIDVino6DeLaMembresia(Membresia*);
+
+struct DatoRanking {
+    std::string id_vino;
+    int contador = 0;
+};
+
 
 /*
   pre : lista fue creada con crearLista().
@@ -41,10 +48,9 @@ void readFileAndLoad(std::string path, Lista *lista);
   del : Cadena que separa los datos de str.
   return Array[8] string con los datos de la membresia
 */
-std::string* splitStrByChar(std::string str, std::string del);
-
-Membresia* getInnerMembresia(Nodo *nodo);
 
 void showMembresiaList(Lista *lista);
+
+void rankingVinosUltimoAnio(Lista *listaAnioMembresias);
 
 #endif // LOADMEMBRESIA_H_INCLUDED

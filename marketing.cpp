@@ -164,18 +164,19 @@ void identificarVarietalDelVino(Membresia* membresia, std::string getIDVinoDeLaM
         obtenerElementoDeLaLista(lVarietales, iContador++, varietal);
         iContador3++;
 
-        if (getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) == getVarietal((eVinos*) vino))
+        if(varietal != NULL)
+           if (getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) == getVarietal((eVinos*) vino))
             bVarietal_Encontrado = true;
     }
 
-    if (getEdadUsuario((Usuario*) usuario) < 30)
+    /*if (getEdadUsuario((Usuario*) usuario) < 30)
         insertarUsuarioEnLaListaDeSuGrupo("menoresDe30", (DatoVarietalPorGrupoEtario*) varietal, (Usuario*) usuario);
 
     if (getEdadUsuario((Usuario*) usuario) >= 30 && getEdadUsuario((Usuario*) usuario) <= 50)
         insertarUsuarioEnLaListaDeSuGrupo("entre30Y50", (DatoVarietalPorGrupoEtario*) varietal, (Usuario*) usuario);
 
     if (getEdadUsuario((Usuario*) usuario) > 50)
-        insertarUsuarioEnLaListaDeSuGrupo("mayoresDe50", (DatoVarietalPorGrupoEtario*) varietal, (Usuario*) usuario);
+        insertarUsuarioEnLaListaDeSuGrupo("mayoresDe50", (DatoVarietalPorGrupoEtario*) varietal, (Usuario*) usuario);*/
 }
 
 void menoresDe30Anios(Lista* lVarietal) {
@@ -201,11 +202,11 @@ void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* 
             obtenerElementoDeLaLista(innerList, x, membresia);
 
             identificarVarietalDelVino((Membresia*)membresia, getIDVino1DeLaMembresia, lUsuario, lCatalogos, lVarietales);
-            identificarVarietalDelVino((Membresia*)membresia, getIDVino2DeLaMembresia, lUsuario, lCatalogos, lVarietales);
+            /*identificarVarietalDelVino((Membresia*)membresia, getIDVino2DeLaMembresia, lUsuario, lCatalogos, lVarietales);
             identificarVarietalDelVino((Membresia*)membresia, getIDVino3DeLaMembresia, lUsuario, lCatalogos, lVarietales);
             identificarVarietalDelVino((Membresia*)membresia, getIDVino4DeLaMembresia, lUsuario, lCatalogos, lVarietales);
             identificarVarietalDelVino((Membresia*)membresia, getIDVino5DeLaMembresia, lUsuario, lCatalogos, lVarietales);
-            identificarVarietalDelVino((Membresia*)membresia, getIDVino6DeLaMembresia, lUsuario, lCatalogos, lVarietales);
+            identificarVarietalDelVino((Membresia*)membresia, getIDVino6DeLaMembresia, lUsuario, lCatalogos, lVarietales);*/
         }
     }
 
