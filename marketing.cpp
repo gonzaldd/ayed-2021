@@ -8,6 +8,13 @@
 
 #include "marketing.h"
 
+struct DatoVarietalPorGrupoEtario{
+    std::string sNombre_Del_Varietal;
+    Lista* menoresDe30;
+    Lista* entre30Y50;
+    Lista* mayoresDe50;
+};
+
 DatoVarietalPorGrupoEtario* crearDatoDeVarietal(std::string sNombre_Del_Varietal) {
     DatoVarietalPorGrupoEtario* d = new DatoVarietalPorGrupoEtario();
 
@@ -161,31 +168,53 @@ void identificarVarietalDelVino(Membresia* membresia, std::string getIDVinoDeLaM
     }
 
     while (iContador3 < getCantidadDeElementosEnLaLista(lVarietales) && !bVarietal_Encontrado) {
-        obtenerElementoDeLaLista(lVarietales, iContador++, varietal);
+        obtenerElementoDeLaLista(lVarietales, iContador3, varietal);
         iContador3++;
 
-        if(varietal != NULL)
-           if (getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) == getVarietal((eVinos*) vino))
+        if (getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) == getVarietal((eVinos*) vino))
             bVarietal_Encontrado = true;
     }
 
-    /*if (getEdadUsuario((Usuario*) usuario) < 30)
+    if (getEdadUsuario((Usuario*) usuario) < 30)
         insertarUsuarioEnLaListaDeSuGrupo("menoresDe30", (DatoVarietalPorGrupoEtario*) varietal, (Usuario*) usuario);
 
     if (getEdadUsuario((Usuario*) usuario) >= 30 && getEdadUsuario((Usuario*) usuario) <= 50)
         insertarUsuarioEnLaListaDeSuGrupo("entre30Y50", (DatoVarietalPorGrupoEtario*) varietal, (Usuario*) usuario);
 
     if (getEdadUsuario((Usuario*) usuario) > 50)
-        insertarUsuarioEnLaListaDeSuGrupo("mayoresDe50", (DatoVarietalPorGrupoEtario*) varietal, (Usuario*) usuario);*/
+        insertarUsuarioEnLaListaDeSuGrupo("mayoresDe50", (DatoVarietalPorGrupoEtario*) varietal, (Usuario*) usuario);
 }
 
 void menoresDe30Anios(Lista* lVarietal) {
     ELEMENTO varietal;
 
+    std::cout << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\tVarietal por grupo etario menores de 30 años\n" << LINEA << std::endl << LINEA << std::endl;
     for (int i = 0; i < getCantidadDeElementosEnLaLista(lVarietal); i++) {
         obtenerElementoDeLaLista(lVarietal, i, varietal);
 
-        std::cout << getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) << " - " << getCantidadDeElementosEnLaLista(getListaMenoresDe30((DatoVarietalPorGrupoEtario*) varietal)) << std::endl;
+        std::cout << getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) << ": " << getCantidadDeElementosEnLaLista(getListaMenoresDe30((DatoVarietalPorGrupoEtario*) varietal)) << std::endl;
+    }
+}
+
+void entre30Y50Anios(Lista* lVarietal) {
+    ELEMENTO varietal;
+
+    std::cout << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\tVarietal por grupo etario entre 30 y 50 años\n" << LINEA << std::endl << LINEA << std::endl;
+    for (int i = 0; i < getCantidadDeElementosEnLaLista(lVarietal); i++) {
+        obtenerElementoDeLaLista(lVarietal, i, varietal);
+
+        std::cout << getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) << ": " << getCantidadDeElementosEnLaLista(getListaEntre30Y50((DatoVarietalPorGrupoEtario*) varietal)) << std::endl;
+    }
+}
+
+void mayoresDe50Anios(Lista* lVarietal) {
+    ELEMENTO varietal;
+
+    std::cout << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\tVarietal por grupo etario mayores de 50 años\n" << LINEA << std::endl << LINEA << std::endl;
+    for (int i = 0; i < getCantidadDeElementosEnLaLista(lVarietal); i++) {
+        obtenerElementoDeLaLista(lVarietal, i, varietal);
+
+        std::cout << getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) << ": " << getCantidadDeElementosEnLaLista(getListaMayoresDe50((DatoVarietalPorGrupoEtario*) varietal)) << std::endl;
     }
 }
 
@@ -202,13 +231,15 @@ void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* 
             obtenerElementoDeLaLista(innerList, x, membresia);
 
             identificarVarietalDelVino((Membresia*)membresia, getIDVino1DeLaMembresia, lUsuario, lCatalogos, lVarietales);
-            /*identificarVarietalDelVino((Membresia*)membresia, getIDVino2DeLaMembresia, lUsuario, lCatalogos, lVarietales);
+            identificarVarietalDelVino((Membresia*)membresia, getIDVino2DeLaMembresia, lUsuario, lCatalogos, lVarietales);
             identificarVarietalDelVino((Membresia*)membresia, getIDVino3DeLaMembresia, lUsuario, lCatalogos, lVarietales);
             identificarVarietalDelVino((Membresia*)membresia, getIDVino4DeLaMembresia, lUsuario, lCatalogos, lVarietales);
             identificarVarietalDelVino((Membresia*)membresia, getIDVino5DeLaMembresia, lUsuario, lCatalogos, lVarietales);
-            identificarVarietalDelVino((Membresia*)membresia, getIDVino6DeLaMembresia, lUsuario, lCatalogos, lVarietales);*/
+            identificarVarietalDelVino((Membresia*)membresia, getIDVino6DeLaMembresia, lUsuario, lCatalogos, lVarietales);
         }
     }
 
     menoresDe30Anios(lVarietales);
+    entre30Y50Anios(lVarietales);
+    mayoresDe50Anios(lVarietales);
 }
