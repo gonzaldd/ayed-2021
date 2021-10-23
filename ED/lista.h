@@ -3,6 +3,12 @@
 
 #include "Nodo/Nodo.h"
 
+enum COMPARACION {
+    MENOR = -1,
+    IGUAL,
+    MAYOR
+};
+
 struct Lista {
     Nodo* inicio;
     int iTamanio_Lista;
@@ -94,5 +100,30 @@ void eliminarElementoDeLaLista(Lista*&, int iPosicion, ELEMENTO&);
     POST: Remuevo y almaceno en una variable el ELEMENTO que poseo al final de la lista.
 */
 void eliminarElementoFinalDeLaLista(Lista*&, ELEMENTO&);
+
+/*
+    PRE: La lista debe haber sido creada y debe existir una funcion que muestre 1 tipo de dato en particular.
+    POST: Se muestra por consola los datos de todos los elementos que hay en la lista.
+*/
+void mostrarElementosDeLaLista(Lista*, void mostrarDatos(Lista*, int));
+
+/*
+    PRE: La lista debe haber sido creada.
+    POST: Invierto los elementos de la lista si es que ambas posiciones existen en la lista.
+*/
+void invertirElementos(Lista*, int iPosicion1, int iPosicion2);
+
+/*
+    PRE: La lista debe haber sido creada y debe exister la funcion que se encargue de comparar segun el criterio.
+    POST: Ordeno la lista en forma descente.
+*/
+void reordenarLista(Lista*, int comparar(Lista*, int iPosicion1, int iPosicion2));
+
+//-----------------------------------------------------------Destructor-------------------------------------------------------
+/*
+    PRE: La lista debe haber sido creada.
+    POST: La lista es eliminada.
+*/
+void destruirLista(Lista*);
 
 #endif // !LISTA_H

@@ -79,14 +79,11 @@ void cargarDatosDeUsuarioEnLaLista(const char* sNombre_Archivo, Lista* &lista) {
         std::cout << "\nError al abir el archivo" << std::endl;
 }
 
-void mostrarDatosDeLosUsuariosEnLaLista(Lista* &lista) {
-    ELEMENTO u;
-
-    for (int i = 0; i < getCantidadDeElementosEnLaLista(lista); i++) {
-        obtenerElementoDeLaLista(lista, i, u);
-        mostrarUsuario((Usuario*) u);
-    }
-
+void mostrarDatoUsuario(Lista* lista, int iPosicion){
+    ELEMENTO usuario;
+    
+    obtenerElementoDeLaLista(lista, iPosicion, usuario);
+    mostrarUsuario((Usuario*)usuario);
 }
 
 void cargarCatalogoDeVinosEnLaLista(const char* sNombre_Archivo, Lista* &lista) {
@@ -153,13 +150,10 @@ void cargarCatalogoDeVinosEnLaLista(const char* sNombre_Archivo, Lista* &lista) 
         std::cout << "\nError al abir el archivo" << std::endl;
 }
 
-void mostrarCatalogoDeVinos(Lista* &lista) {
-    ELEMENTO v;
-
-    for (int i = 0; i < getCantidadDeElementosEnLaLista(lista); i++) {
-        obtenerElementoDeLaLista(lista, i, v);
-        mostrarVino((eVinos*) v);
-        std::cout << LINEA << std::endl;
-    }
+void mostrarDatoVino(Lista* lista, int iPosicion){
+    ELEMENTO vino;
     
+    obtenerElementoDeLaLista(lista, iPosicion, vino);
+    mostrarVino((eVinos*)vino);
+    std::cout << LINEA << std::endl;
 }

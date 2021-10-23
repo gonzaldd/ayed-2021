@@ -8,10 +8,10 @@
 void cargarDatosDeUsuarioEnLaLista(const char*, Lista*&);
 
 /*
-    PRE:La lista debe haber sido creada.
-    POST: Se muestra por consola los datos de todos los usuarios que hay en la lista.
+    PRE: La lista debe haber sido creada.
+    POST: Muestro un dato de la lista de tipo usuario segun la posicion de la lista.
 */
-void mostrarDatosDeLosUsuariosEnLaLista(Lista*&);
+void mostrarDatoUsuario(Lista*, int);
 
 /*
     PRE: La lista debe haber sido creada.
@@ -20,10 +20,10 @@ void mostrarDatosDeLosUsuariosEnLaLista(Lista*&);
 void cargarCatalogoDeVinosEnLaLista(const char*, Lista*&);
 
 /*
-    PRE:La lista debe haber sido creada.
-    POST: Se muestra por consola los datos de todos los vinos que hay en la lista.
+    PRE: La lista debe haber sido creada.
+    POST: Muestro un dato de la lista de tipo vino segun la posicion de la lista.
 */
-void mostrarCatalogoDeVinos(Lista*&);
+void mostrarDatoVino(Lista*, int);
 
 #endif /* CARGARARCHIVOSENLISTA_H */
 

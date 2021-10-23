@@ -8,13 +8,31 @@
 
 #include "marketing.h"
 
-struct DatoVarietalPorGrupoEtario{
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                  Ranking general de vinos del ultimo año
+ --------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                    Ranking por bodegas del ultimo año
+ --------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                Ranking de varietales elegido por rango etario
+ --------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+struct DatoVarietalPorGrupoEtario {
     std::string sNombre_Del_Varietal;
     Lista* menoresDe30;
     Lista* entre30Y50;
     Lista* mayoresDe50;
 };
 
+//------------------------------------------------------------------------Constructor------------------------------------------------------------------------
+
+/*
+    PRE: El datoVarietalPorGrupoEtario no debe haber sido creado.
+    POST: El datoVarietalPorGrupoEtario queda creado.
+ */
 DatoVarietalPorGrupoEtario* crearDatoDeVarietal(std::string sNombre_Del_Varietal) {
     DatoVarietalPorGrupoEtario* d = new DatoVarietalPorGrupoEtario();
 
@@ -26,22 +44,59 @@ DatoVarietalPorGrupoEtario* crearDatoDeVarietal(std::string sNombre_Del_Varietal
     return d;
 }
 
+//---------------------------------------------------------------------------Getters---------------------------------------------------------------------------
+
+/*
+    PRE: El datoVarietalPorGrupoEtario debe haber sido creado.
+    POST: Devuelve el dato del nombre del varietal.
+ */
 std::string getNombreDelVarietal(DatoVarietalPorGrupoEtario* d) {
     return d->sNombre_Del_Varietal;
 }
 
+/*
+    PRE: El datoVarietalPorGrupoEtario debe haber sido creado.
+    POST: Devuelve la lista de los menores de 30.
+ */
 Lista* getListaMenoresDe30(DatoVarietalPorGrupoEtario* d) {
     return d->menoresDe30;
 }
 
+/*
+    PRE: El datoVarietalPorGrupoEtario debe haber sido creado.
+    POST: Devuelve la lista de los de entre 30 y 50 inclusive.
+ */
 Lista* getListaEntre30Y50(DatoVarietalPorGrupoEtario* d) {
     return d->entre30Y50;
 }
 
+/*
+    PRE: El datoVarietalPorGrupoEtario debe haber sido creado.
+    POST: Devuelve la lista de los mayores de 50.
+ */
 Lista* getListaMayoresDe50(DatoVarietalPorGrupoEtario* d) {
     return d->mayoresDe50;
 }
 
+//------------------------------------------------------------------------Destructor-------------------------------------------------------------------------
+
+/*
+    PRE: El datoVarietalPorGrupoEtario debe haber sido creado.
+    POST: El datoVarietalPorGrupoEtario es eliminado.
+ */
+void destuirDatoDeVarietal(DatoVarietalPorGrupoEtario* d) {
+    destruirLista(d->menoresDe30);
+    destruirLista(d->entre30Y50);
+    destruirLista(d->mayoresDe50);
+    delete d;
+}
+
+//-------------------------------------------------------------------Funciones extras--------------------------------------------------------------------
+
+/*
+    PRE: Debe existir la lista de catalogos.
+    POST: Devuelvo la lista de los varietales que existen en el catalogo.
+ */
 Lista* varietalesQueHay(Lista* lCatalogo) {
     Lista* lAux = crearLista();
     Lista* lVarietales = crearLista();
@@ -75,12 +130,16 @@ Lista* varietalesQueHay(Lista* lCatalogo) {
         insertarElementoAlFinalDeLaLista(lVarietales, (DatoVarietalPorGrupoEtario*) temp);
     }
 
-    vaciarLista(lAux);
-    delete lAux;
+    destruirLista(lAux);
 
     return lVarietales;
 }
 
+/*
+    PRE: Indico el grupo etario del cliente, el varietal y el usuario con los que se debe operar.
+    POST: Opero la lista del grupo etario que corresponda agregando el usuario que compro un X varietal si
+ * es que el usuario no ha comprado previamente dicho varietal.
+ */
 void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPorGrupoEtario* lVarietales, Usuario* usuario) {
     bool bUsuario_Existe = false;
     int iContador = 0;
@@ -146,6 +205,10 @@ void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPo
 
 }
 
+/*
+    PRE: Debe existir la lista de varietal, de usuarios, de calatogo, debe existir la membresia y debo indicar el vino que deseo obtener de los que existen.
+    POST: Inserto cada vino comprado en el grupo etario que corresponda en base al comprador.
+ */
 void identificarVarietalDelVino(Membresia* membresia, std::string getIDVinoDeLaMembresia(Membresia* m), Lista* lUsuario, Lista* lCatalogos, Lista* &lVarietales) {
     int iContador = 0, iContador2 = 0, iContador3 = 0;
     bool bVino_Encontrado = false, bUsuario_Encontrado = false, bVarietal_Encontrado = false;
@@ -185,38 +248,98 @@ void identificarVarietalDelVino(Membresia* membresia, std::string getIDVinoDeLaM
         insertarUsuarioEnLaListaDeSuGrupo("mayoresDe50", (DatoVarietalPorGrupoEtario*) varietal, (Usuario*) usuario);
 }
 
-void menoresDe30Anios(Lista* lVarietal) {
-    ELEMENTO varietal;
+//------------------------------------------------------------Funciones de ordenar rankig------------------------------------------------------------
 
-    std::cout << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\tVarietal por grupo etario menores de 30 años\n" << LINEA << std::endl << LINEA << std::endl;
-    for (int i = 0; i < getCantidadDeElementosEnLaLista(lVarietal); i++) {
-        obtenerElementoDeLaLista(lVarietal, i, varietal);
+/*
+    PRE: Debe existir la lista de los varietales y debo indicar 2 posicion a comparar.
+    POST: Comparo los datos e indico si son mayores, menores e iguales.
+ */
+int compararMenoresDe30Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
+    int iResultado = IGUAL;
+    ELEMENTO elemento1, elemento2;
 
-        std::cout << getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) << ": " << getCantidadDeElementosEnLaLista(getListaMenoresDe30((DatoVarietalPorGrupoEtario*) varietal)) << std::endl;
-    }
+    obtenerElementoDeLaLista(lVarietal, iPosicion1, elemento1);
+    obtenerElementoDeLaLista(lVarietal, iPosicion2, elemento2);
+
+    if (getCantidadDeElementosEnLaLista(getListaMenoresDe30((DatoVarietalPorGrupoEtario*) elemento1)) < getCantidadDeElementosEnLaLista(getListaMenoresDe30((DatoVarietalPorGrupoEtario*) elemento2))) {
+        iResultado = MAYOR;
+    } else
+        iResultado = MENOR;
+
+    return iResultado;
 }
 
-void entre30Y50Anios(Lista* lVarietal) {
-    ELEMENTO varietal;
+/*
+    PRE: Debe existir la lista de los varietales y debo indicar 2 posicion a comparar.
+    POST: Comparo los datos e indico si son mayores, menores e iguales.
+ */
+int compararEntre30Y50Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
+    int iResultado = IGUAL;
+    ELEMENTO elemento1, elemento2;
 
-    std::cout << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\tVarietal por grupo etario entre 30 y 50 años\n" << LINEA << std::endl << LINEA << std::endl;
-    for (int i = 0; i < getCantidadDeElementosEnLaLista(lVarietal); i++) {
-        obtenerElementoDeLaLista(lVarietal, i, varietal);
+    obtenerElementoDeLaLista(lVarietal, iPosicion1, elemento1);
+    obtenerElementoDeLaLista(lVarietal, iPosicion2, elemento2);
 
-        std::cout << getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) << ": " << getCantidadDeElementosEnLaLista(getListaEntre30Y50((DatoVarietalPorGrupoEtario*) varietal)) << std::endl;
-    }
+    if (getCantidadDeElementosEnLaLista(getListaEntre30Y50((DatoVarietalPorGrupoEtario*) elemento1)) < getCantidadDeElementosEnLaLista(getListaEntre30Y50((DatoVarietalPorGrupoEtario*) elemento2))) {
+        iResultado = MAYOR;
+    } else
+        iResultado = MENOR;
+
+    return iResultado;
 }
 
-void mayoresDe50Anios(Lista* lVarietal) {
-    ELEMENTO varietal;
+/*
+    PRE: Debe existir la lista de los varietales y debo indicar 2 posicion a comparar.
+    POST: Comparo los datos e indico si son mayores, menores e iguales.
+ */
+int compararMayoresDe50Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
+    int iResultado = IGUAL;
+    ELEMENTO elemento1, elemento2;
 
-    std::cout << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\tVarietal por grupo etario mayores de 50 años\n" << LINEA << std::endl << LINEA << std::endl;
-    for (int i = 0; i < getCantidadDeElementosEnLaLista(lVarietal); i++) {
-        obtenerElementoDeLaLista(lVarietal, i, varietal);
+    obtenerElementoDeLaLista(lVarietal, iPosicion1, elemento1);
+    obtenerElementoDeLaLista(lVarietal, iPosicion2, elemento2);
 
-        std::cout << getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) << ": " << getCantidadDeElementosEnLaLista(getListaMayoresDe50((DatoVarietalPorGrupoEtario*) varietal)) << std::endl;
-    }
+    if (getCantidadDeElementosEnLaLista(getListaMayoresDe50((DatoVarietalPorGrupoEtario*) elemento1)) < getCantidadDeElementosEnLaLista(getListaMayoresDe50((DatoVarietalPorGrupoEtario*) elemento2))) {
+        iResultado = MAYOR;
+    } else
+        iResultado = MENOR;
+
+    return iResultado;
 }
+
+//------------------------------------------------------------------------Mostrar datos---------------------------------------------------------------------
+
+/*
+    PRE: Debe existir la lista de los varietales y debo indicar la posicion a mostrar.
+    POST: Imprimo los datos del varietal en dicho grupo etario.
+ */
+void menoresDe30Anios(Lista* lVarietal, int iPosicion) {
+    ELEMENTO varietal;
+    obtenerElementoDeLaLista(lVarietal, iPosicion, varietal);
+    std::cout << getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) << ": " << getCantidadDeElementosEnLaLista(getListaMenoresDe30((DatoVarietalPorGrupoEtario*) varietal)) << std::endl;
+}
+
+/*
+    PRE: Debe existir la lista de los varietales y debo indicar la posicion a mostrar.
+    POST: Imprimo los datos del varietal en dicho grupo etario.
+ */
+void entre30Y50Anios(Lista* lVarietal, int iPosicion) {
+    ELEMENTO varietal;
+    obtenerElementoDeLaLista(lVarietal, iPosicion, varietal);
+    std::cout << getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) << ": " << getCantidadDeElementosEnLaLista(getListaEntre30Y50((DatoVarietalPorGrupoEtario*) varietal)) << std::endl;
+}
+
+/*
+    PRE: Debe existir la lista de los varietales y debo indicar la posicion a mostrar.
+    POST: Imprimo los datos del varietal en dicho grupo etario.
+ */
+void mayoresDe50Anios(Lista* lVarietal, int iPosicion) {
+    ELEMENTO varietal;
+    obtenerElementoDeLaLista(lVarietal, iPosicion, varietal);
+    std::cout << getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) << ": " << getCantidadDeElementosEnLaLista(getListaMayoresDe50((DatoVarietalPorGrupoEtario*) varietal)) << std::endl;
+}
+
+//-------------------------------------------------------------------Funciones principal--------------------------------------------------------------------
 
 void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* lCatalogos) {
     Lista* lVarietales = varietalesQueHay(lCatalogos);
@@ -230,16 +353,30 @@ void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* 
             ELEMENTO membresia;
             obtenerElementoDeLaLista(innerList, x, membresia);
 
-            identificarVarietalDelVino((Membresia*)membresia, getIDVino1DeLaMembresia, lUsuario, lCatalogos, lVarietales);
-            identificarVarietalDelVino((Membresia*)membresia, getIDVino2DeLaMembresia, lUsuario, lCatalogos, lVarietales);
-            identificarVarietalDelVino((Membresia*)membresia, getIDVino3DeLaMembresia, lUsuario, lCatalogos, lVarietales);
-            identificarVarietalDelVino((Membresia*)membresia, getIDVino4DeLaMembresia, lUsuario, lCatalogos, lVarietales);
-            identificarVarietalDelVino((Membresia*)membresia, getIDVino5DeLaMembresia, lUsuario, lCatalogos, lVarietales);
-            identificarVarietalDelVino((Membresia*)membresia, getIDVino6DeLaMembresia, lUsuario, lCatalogos, lVarietales);
+            identificarVarietalDelVino((Membresia*) membresia, getIDVino1DeLaMembresia, lUsuario, lCatalogos, lVarietales);
+            identificarVarietalDelVino((Membresia*) membresia, getIDVino2DeLaMembresia, lUsuario, lCatalogos, lVarietales);
+            identificarVarietalDelVino((Membresia*) membresia, getIDVino3DeLaMembresia, lUsuario, lCatalogos, lVarietales);
+            identificarVarietalDelVino((Membresia*) membresia, getIDVino4DeLaMembresia, lUsuario, lCatalogos, lVarietales);
+            identificarVarietalDelVino((Membresia*) membresia, getIDVino5DeLaMembresia, lUsuario, lCatalogos, lVarietales);
+            identificarVarietalDelVino((Membresia*) membresia, getIDVino6DeLaMembresia, lUsuario, lCatalogos, lVarietales);
         }
     }
 
-    menoresDe30Anios(lVarietales);
-    entre30Y50Anios(lVarietales);
-    mayoresDe50Anios(lVarietales);
+    std::cout << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\tVarietal por grupo etario menores de 30 años\n" << LINEA << std::endl << LINEA << std::endl;
+    reordenarLista(lVarietales, compararMenoresDe30Anios);
+    mostrarElementosDeLaLista(lVarietales, menoresDe30Anios);
+    std::cout << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\tVarietal por grupo etario entre 30 y 50 años\n" << LINEA << std::endl << LINEA << std::endl;
+    reordenarLista(lVarietales, compararEntre30Y50Anios);
+    mostrarElementosDeLaLista(lVarietales, entre30Y50Anios);
+    std::cout << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\tVarietal por grupo etario mayores de 50 años\n" << LINEA << std::endl << LINEA << std::endl;
+    reordenarLista(lVarietales, compararMayoresDe50Anios);
+    mostrarElementosDeLaLista(lVarietales, mayoresDe50Anios);
+
+    //Elimino la lista de varietales ya que no se la va a utilizar más.
+    ELEMENTO temp;
+    for (int i = 0; i < getCantidadDeElementosEnLaLista(lVarietales); i++) {
+        eliminarElementoDeLaLista(lVarietales, i, temp);
+        destuirDatoDeVarietal((DatoVarietalPorGrupoEtario*) temp);
+        destruirLista(lVarietales);
+    }
 }
