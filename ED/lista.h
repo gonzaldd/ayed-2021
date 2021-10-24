@@ -121,9 +121,9 @@ void reordenarLista(Lista*, int comparar(Lista*, int iPosicion1, int iPosicion2)
 
 //-----------------------------------------------------------Destructor-------------------------------------------------------
 /*
-    PRE: La lista debe haber sido creada.
+    PRE: La lista debe haber sido creada y debe existir la funcion que elimine un tipo de dato en particular.
     POST: La lista es eliminada.
 */
-void destruirLista(Lista*);
+void destruirLista(Lista*, void eliminarDatos(int, Lista*));
 
 #endif // !LISTA_H

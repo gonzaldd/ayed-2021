@@ -84,10 +84,13 @@ Lista* getListaMayoresDe50(DatoVarietalPorGrupoEtario* d) {
     PRE: El datoVarietalPorGrupoEtario debe haber sido creado.
     POST: El datoVarietalPorGrupoEtario es eliminado.
  */
-void destuirDatoDeVarietal(DatoVarietalPorGrupoEtario* d) {
-    destruirLista(d->menoresDe30);
-    destruirLista(d->entre30Y50);
-    destruirLista(d->mayoresDe50);
+void destruirDatoDeVarietal(DatoVarietalPorGrupoEtario* d) {
+    vaciarLista(d->menoresDe30);
+    delete d->menoresDe30;
+    vaciarLista(d->entre30Y50);
+    delete d->entre30Y50;
+    vaciarLista(d->mayoresDe50);
+    delete d->mayoresDe50;
     delete d;
 }
 
@@ -129,8 +132,9 @@ Lista* varietalesQueHay(Lista* lCatalogo) {
         temp = crearDatoDeVarietal(getVarietal((eVinos*) aux));
         insertarElementoAlFinalDeLaLista(lVarietales, (DatoVarietalPorGrupoEtario*) temp);
     }
-
-    destruirLista(lAux);
+    
+    vaciarLista(lAux);
+    delete lAux;
 
     return lVarietales;
 }
@@ -339,6 +343,17 @@ void mayoresDe50Anios(Lista* lVarietal, int iPosicion) {
     std::cout << getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) << ": " << getCantidadDeElementosEnLaLista(getListaMayoresDe50((DatoVarietalPorGrupoEtario*) varietal)) << std::endl;
 }
 
+//------------------------------------------------------------------------Eliminar datos---------------------------------------------------------------------
+/*
+    PRE: Debe existir la lista de los varietales y debo indicar la posicion a eliminar.
+    POST: Elimino el dato del varietal.
+ */
+void eliminarDatosDeVarietales(int iPosicion, Lista* lVarietales) {
+    ELEMENTO temp;    
+    eliminarElementoDeLaLista(lVarietales, iPosicion, temp);
+    destruirDatoDeVarietal((DatoVarietalPorGrupoEtario*) temp);
+}
+
 //-------------------------------------------------------------------Funciones principal--------------------------------------------------------------------
 
 void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* lCatalogos) {
@@ -372,11 +387,5 @@ void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* 
     reordenarLista(lVarietales, compararMayoresDe50Anios);
     mostrarElementosDeLaLista(lVarietales, mayoresDe50Anios);
 
-    //Elimino la lista de varietales ya que no se la va a utilizar más.
-    ELEMENTO temp;
-    for (int i = 0; i < getCantidadDeElementosEnLaLista(lVarietales); i++) {
-        eliminarElementoDeLaLista(lVarietales, i, temp);
-        destuirDatoDeVarietal((DatoVarietalPorGrupoEtario*) temp);
-        destruirLista(lVarietales);
-    }
+    destruirLista(lVarietales, eliminarDatosDeVarietales);
 }
