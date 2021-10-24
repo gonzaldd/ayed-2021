@@ -85,12 +85,9 @@ Lista* getListaMayoresDe50(DatoVarietalPorGrupoEtario* d) {
     POST: El datoVarietalPorGrupoEtario es eliminado.
  */
 void destruirDatoDeVarietal(DatoVarietalPorGrupoEtario* d) {
-    vaciarLista(d->menoresDe30);
-    delete d->menoresDe30;
-    vaciarLista(d->entre30Y50);
-    delete d->entre30Y50;
-    vaciarLista(d->mayoresDe50);
-    delete d->mayoresDe50;
+    destruirLista(d->menoresDe30);
+    destruirLista(d->entre30Y50);
+    destruirLista(d->mayoresDe50);
     delete d;
 }
 
@@ -133,8 +130,7 @@ Lista* varietalesQueHay(Lista* lCatalogo) {
         insertarElementoAlFinalDeLaLista(lVarietales, (DatoVarietalPorGrupoEtario*) temp);
     }
     
-    vaciarLista(lAux);
-    delete lAux;
+    destruirLista(lAux);
 
     return lVarietales;
 }
@@ -387,5 +383,5 @@ void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* 
     reordenarLista(lVarietales, compararMayoresDe50Anios);
     mostrarElementosDeLaLista(lVarietales, mayoresDe50Anios);
 
-    destruirLista(lVarietales, eliminarDatosDeVarietales);
+    destruirListaYDatos(lVarietales, eliminarDatosDeVarietales);
 }

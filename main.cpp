@@ -31,8 +31,8 @@ int main(int argc, char** argv) {
     rankingVinosUltimoAnio(lMembresia);
     rankingVarietalesPorGrupoEtario(lMembresia, lUsuarios, lCatalogo);
 
-    destruirLista(lUsuarios, eliminarDatoUsuario);
-    destruirLista(lCatalogo, eliminarDatoVino);
+    destruirListaYDatos(lUsuarios, eliminarDatoUsuario);
+    destruirListaYDatos(lCatalogo, eliminarDatoVino);
     
     std::cout << std::endl;
     return EXIT_SUCCESS;

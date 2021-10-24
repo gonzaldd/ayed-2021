@@ -119,11 +119,17 @@ void invertirElementos(Lista*, int iPosicion1, int iPosicion2);
 */
 void reordenarLista(Lista*, int comparar(Lista*, int iPosicion1, int iPosicion2));
 
-//-----------------------------------------------------------Destructor-------------------------------------------------------
+//-----------------------------------------------------------Destructores-------------------------------------------------------
+/*
+    PRE: La lista debe haber sido creada.
+    POST: La lista es eliminada pero sin eliminar los datos que la formaban.
+*/
+void destruirLista(Lista*);
+
 /*
     PRE: La lista debe haber sido creada y debe existir la funcion que elimine un tipo de dato en particular.
-    POST: La lista es eliminada.
+    POST: La lista es eliminada y los datos que la formaban tambien son destruidos.
 */
-void destruirLista(Lista*, void eliminarDatos(int, Lista*));
+void destruirListaYDatos(Lista*, void eliminarDatos(int, Lista*));
 
 #endif // !LISTA_H

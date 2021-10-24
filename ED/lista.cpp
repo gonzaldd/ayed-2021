@@ -156,7 +156,12 @@ void reordenarLista(Lista* lista, int comparar(Lista*, int iPosicion1, int iPosi
     }
 }
 
-void destruirLista(Lista* l, void eliminarDatos(int, Lista*)){
+void destruirLista(Lista* l){
+    vaciarLista(l);
+    delete l;
+}
+
+void destruirListaYDatos(Lista* l, void eliminarDatos(int, Lista*)){
     for (int i = 0; i < getCantidadDeElementosEnLaLista(l); i++) {
         eliminarDatos(i, l);
     }
