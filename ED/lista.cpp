@@ -141,20 +141,29 @@ void invertirElementos(Lista* lista, int iPosicion1, int iPosicion2) {
     }
 }
 
-void reordenarLista(Lista* lista, int comparar(Lista*, int iPosicion1, int iPosicion2)) {
-    int iTamanio = getCantidadDeElementosEnLaLista(lista), iComparacion;
+int ascendente(){
+    return MAYOR;
+}
+
+int descendente(){
+    return MENOR;
+}
+
+void reordenarLista(Lista* lista, int comparar(Lista*, int iPosicion1, int iPosicion2), int criterio()) {
+    int iTamanio = getCantidadDeElementosEnLaLista(lista);
 
     for (int i = 0; i < iTamanio; i++) {
 
         for (int j = (i + 1); j < iTamanio; j++) {
 
-            iComparacion = comparar(lista, i, j);
-            if (iComparacion == MAYOR)
+            if (comparar(lista, i, j) == criterio())
                 invertirElementos(lista, i, j);
 
         }
     }
 }
+
+//-----------------------------------------------------------Destructores-------------------------------------------------------
 
 void destruirLista(Lista* l){
     vaciarLista(l);

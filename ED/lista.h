@@ -114,10 +114,22 @@ void mostrarElementosDeLaLista(Lista*, void mostrarDatos(Lista*, int));
 void invertirElementos(Lista*, int iPosicion1, int iPosicion2);
 
 /*
-    PRE: La lista debe haber sido creada y debe exister la funcion que se encargue de comparar segun el criterio.
-    POST: Ordeno la lista en forma descente.
+    PRE: Debe existir el enum COMPARACION.
+    POST: Devuelve el valor de MAYOR.
 */
-void reordenarLista(Lista*, int comparar(Lista*, int iPosicion1, int iPosicion2));
+int ascendente();
+
+/*
+    PRE: Debe existir el enum comparacion.
+    POST: Devuelve el valor de MENOR.
+*/
+int descendente();
+
+/*
+    PRE: La lista debe haber sido creada y debe exister la funcion que se encargue de comparar segun el criterio.
+    POST: Ordeno la lista en forma ascendente o descendente segun se indique en el tercer parametro.
+*/
+void reordenarLista(Lista*, int comparar(Lista*, int iPosicion1, int iPosicion2), int criterio());
 
 //-----------------------------------------------------------Destructores-------------------------------------------------------
 /*

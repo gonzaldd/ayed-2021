@@ -249,22 +249,23 @@ void identificarVarietalDelVino(Membresia* membresia, std::string getIDVinoDeLaM
 }
 
 //------------------------------------------------------------Funciones de ordenar rankig------------------------------------------------------------
-
 /*
     PRE: Debe existir la lista de los varietales y debo indicar 2 posicion a comparar.
     POST: Comparo los datos e indico si son mayores, menores e iguales.
  */
 int compararMenoresDe30Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
-    int iResultado = IGUAL;
     ELEMENTO elemento1, elemento2;
 
     obtenerElementoDeLaLista(lVarietal, iPosicion1, elemento1);
     obtenerElementoDeLaLista(lVarietal, iPosicion2, elemento2);
 
+    int iResultado;
     if (getCantidadDeElementosEnLaLista(getListaMenoresDe30((DatoVarietalPorGrupoEtario*) elemento1)) < getCantidadDeElementosEnLaLista(getListaMenoresDe30((DatoVarietalPorGrupoEtario*) elemento2))) {
+        iResultado = MENOR;
+    } else if (getCantidadDeElementosEnLaLista(getListaMenoresDe30((DatoVarietalPorGrupoEtario*) elemento1)) > getCantidadDeElementosEnLaLista(getListaMenoresDe30((DatoVarietalPorGrupoEtario*) elemento2))) {
         iResultado = MAYOR;
     } else
-        iResultado = MENOR;
+        iResultado = IGUAL;
 
     return iResultado;
 }
@@ -274,16 +275,18 @@ int compararMenoresDe30Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
     POST: Comparo los datos e indico si son mayores, menores e iguales.
  */
 int compararEntre30Y50Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
-    int iResultado = IGUAL;
     ELEMENTO elemento1, elemento2;
 
     obtenerElementoDeLaLista(lVarietal, iPosicion1, elemento1);
     obtenerElementoDeLaLista(lVarietal, iPosicion2, elemento2);
 
+    int iResultado;
     if (getCantidadDeElementosEnLaLista(getListaEntre30Y50((DatoVarietalPorGrupoEtario*) elemento1)) < getCantidadDeElementosEnLaLista(getListaEntre30Y50((DatoVarietalPorGrupoEtario*) elemento2))) {
+        iResultado = MENOR;
+    } else if (getCantidadDeElementosEnLaLista(getListaEntre30Y50((DatoVarietalPorGrupoEtario*) elemento1)) > getCantidadDeElementosEnLaLista(getListaEntre30Y50((DatoVarietalPorGrupoEtario*) elemento2))) {
         iResultado = MAYOR;
     } else
-        iResultado = MENOR;
+        iResultado = IGUAL;
 
     return iResultado;
 }
@@ -293,16 +296,18 @@ int compararEntre30Y50Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
     POST: Comparo los datos e indico si son mayores, menores e iguales.
  */
 int compararMayoresDe50Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
-    int iResultado = IGUAL;
     ELEMENTO elemento1, elemento2;
 
     obtenerElementoDeLaLista(lVarietal, iPosicion1, elemento1);
     obtenerElementoDeLaLista(lVarietal, iPosicion2, elemento2);
 
+    int iResultado;
     if (getCantidadDeElementosEnLaLista(getListaMayoresDe50((DatoVarietalPorGrupoEtario*) elemento1)) < getCantidadDeElementosEnLaLista(getListaMayoresDe50((DatoVarietalPorGrupoEtario*) elemento2))) {
+        iResultado = MENOR;
+    } else if (getCantidadDeElementosEnLaLista(getListaMayoresDe50((DatoVarietalPorGrupoEtario*) elemento1)) > getCantidadDeElementosEnLaLista(getListaMayoresDe50((DatoVarietalPorGrupoEtario*) elemento2))) {
         iResultado = MAYOR;
     } else
-        iResultado = MENOR;
+        iResultado = IGUAL;
 
     return iResultado;
 }
@@ -374,13 +379,13 @@ void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* 
     }
 
     std::cout << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\tVarietal por grupo etario menores de 30 años\n" << LINEA << std::endl << LINEA << std::endl;
-    reordenarLista(lVarietales, compararMenoresDe30Anios);
+    reordenarLista(lVarietales, compararMenoresDe30Anios, descendente);
     mostrarElementosDeLaLista(lVarietales, menoresDe30Anios);
     std::cout << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\tVarietal por grupo etario entre 30 y 50 años\n" << LINEA << std::endl << LINEA << std::endl;
-    reordenarLista(lVarietales, compararEntre30Y50Anios);
+    reordenarLista(lVarietales, compararEntre30Y50Anios, descendente);
     mostrarElementosDeLaLista(lVarietales, entre30Y50Anios);
     std::cout << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\tVarietal por grupo etario mayores de 50 años\n" << LINEA << std::endl << LINEA << std::endl;
-    reordenarLista(lVarietales, compararMayoresDe50Anios);
+    reordenarLista(lVarietales, compararMayoresDe50Anios, descendente);
     mostrarElementosDeLaLista(lVarietales, mayoresDe50Anios);
 
     destruirListaYDatos(lVarietales, eliminarDatosDeVarietales);
