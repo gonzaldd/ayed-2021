@@ -8,8 +8,8 @@
 
 #include "marketing.h"
 
-void eliminarDatoUsuario(int, Lista*);
-void eliminarDatoVino(int, Lista*);
+void eliminarDatoUsuario(ELEMENTO);
+void eliminarDatoVino(ELEMENTO);
 
 int main(int argc, char** argv) {
     std::cout << LINEA << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\t\t    Lista de usuarios\n" << LINEA << std::endl << LINEA << std::endl << LINEA << std::endl;
@@ -38,14 +38,10 @@ int main(int argc, char** argv) {
     return EXIT_SUCCESS;
 }
 
-void eliminarDatoUsuario(int iPosicion, Lista* lUsuarios){
-    ELEMENTO temp;    
-    eliminarElementoDeLaLista(lUsuarios, iPosicion, temp);
+void eliminarDatoUsuario(ELEMENTO temp){
     destruirUsuario((Usuario*) temp);
 }
 
-void eliminarDatoVino(int iPosicion, Lista* lVinos){
-    ELEMENTO temp;    
-    eliminarElementoDeLaLista(lVinos, iPosicion, temp);
+void eliminarDatoVino(ELEMENTO temp){
     destructorVino((eVinos*) temp);
 }

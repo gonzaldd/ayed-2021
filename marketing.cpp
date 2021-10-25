@@ -102,8 +102,8 @@ Lista* varietalesQueHay(Lista* lCatalogo) {
 }
 
 /*
-    PRE: Debe existir la lista del grupo etario y el usuario.
-    POST: Comparo si el usuario existe o no en la lista y si no esta en la lista lo incorporo (la lista no debe estar vacia).
+    PRE: Debe existir el usuario y la lista del grupo etario, la cual no debe estar vacia.
+    POST: Comparo si el usuario existe o no en la lista y si no esta en la lista lo incorporo.
  */
 void insertarUsuarioEnLaListaDeSuGrupoSiNoEstaVaciaYNoExisteYaEnElla(Lista* lGrupo_Etario, Usuario* usuario) {
     bool bUsuario_Existe = false;
@@ -124,8 +124,7 @@ void insertarUsuarioEnLaListaDeSuGrupoSiNoEstaVaciaYNoExisteYaEnElla(Lista* lGru
 
 /*
     PRE: Indico el grupo etario del cliente, el varietal y el usuario con los que se debe operar.
-    POST: Opero la lista del grupo etario que corresponda agregando el usuario que compro un X varietal si
- * es que el usuario no ha comprado previamente dicho varietal.
+    POST: Opero la lista del grupo etario que corresponda agregando el usuario que compro un X varietal si es que el usuario no ha comprado previamente dicho varietal.
  */
 void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPorGrupoEtario* lVarietales, Usuario* usuario) {
 
@@ -163,7 +162,7 @@ void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPo
     PRE: Debe existir la lista de varietal, de usuarios, de calatogo, debe existir la membresia y debo indicar el vino que deseo obtener de los que existen.
     POST: Inserto cada vino comprado en el grupo etario que corresponda en base al comprador.
  */
-void identificarVarietalDelVino(Membresia* membresia, std::string getIDVinoDeLaMembresia(Membresia* m), Lista* lUsuario, Lista* lCatalogos, Lista* &lVarietales) {
+void identificarVarietalDelVino(Membresia* membresia, int iNumero_De_Vino, Lista* lUsuario, Lista* lCatalogos, Lista* lVarietales) {
     int iContador = 0, iContador2 = 0, iContador3 = 0;
     bool bVino_Encontrado = false, bUsuario_Encontrado = false, bVarietal_Encontrado = false;
     ELEMENTO vino, usuario, varietal;
@@ -172,7 +171,7 @@ void identificarVarietalDelVino(Membresia* membresia, std::string getIDVinoDeLaM
         obtenerElementoDeLaLista(lCatalogos, iContador, vino);
         iContador++;
 
-        if (stoi(getIDVinoDeLaMembresia(membresia)) == getId((eVinos*) vino))
+        if (stoi(getIDVinoDeLaMembresia(membresia, iNumero_De_Vino)) == getId((eVinos*) vino))
             bVino_Encontrado = true;
     }
 
@@ -202,18 +201,13 @@ void identificarVarietalDelVino(Membresia* membresia, std::string getIDVinoDeLaM
         insertarUsuarioEnLaListaDeSuGrupo("mayoresDe50", (DatoVarietalPorGrupoEtario*) varietal, (Usuario*) usuario);
 }
 
-//------------------------------------------------------------Funciones de ordenar rankig------------------------------------------------------------
+//------------------------------------------------------------Funciones de ordenar ranking------------------------------------------------------------
 
 /*
-    PRE: Debe existir la lista de los varietales y debo indicar 2 posicion a comparar.
+    PRE: Deben existir los 2 elementos que deseo comparar.
     POST: Comparo los datos e indico si son mayores, menores e iguales.
  */
-int compararMenoresDe30Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
-    ELEMENTO elemento1, elemento2;
-
-    obtenerElementoDeLaLista(lVarietal, iPosicion1, elemento1);
-    obtenerElementoDeLaLista(lVarietal, iPosicion2, elemento2);
-
+int compararMenoresDe30Anios(ELEMENTO elemento1, ELEMENTO elemento2) {
     int iResultado;
     if (getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento1)->menoresDe30) < getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento2)->menoresDe30)) {
         iResultado = MENOR;
@@ -226,15 +220,10 @@ int compararMenoresDe30Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
 }
 
 /*
-    PRE: Debe existir la lista de los varietales y debo indicar 2 posicion a comparar.
+    PRE: Deben existir los 2 elementos que deseo comparar.
     POST: Comparo los datos e indico si son mayores, menores e iguales.
  */
-int compararEntre30Y50Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
-    ELEMENTO elemento1, elemento2;
-
-    obtenerElementoDeLaLista(lVarietal, iPosicion1, elemento1);
-    obtenerElementoDeLaLista(lVarietal, iPosicion2, elemento2);
-
+int compararEntre30Y50Anios(ELEMENTO elemento1, ELEMENTO elemento2) {
     int iResultado;
     if (getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento1)->entre30Y50) < getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento2)->entre30Y50)) {
         iResultado = MENOR;
@@ -247,15 +236,10 @@ int compararEntre30Y50Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
 }
 
 /*
-    PRE: Debe existir la lista de los varietales y debo indicar 2 posicion a comparar.
+    PRE: Deben existir los 2 elementos que deseo comparar.
     POST: Comparo los datos e indico si son mayores, menores e iguales.
  */
-int compararMayoresDe50Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
-    ELEMENTO elemento1, elemento2;
-
-    obtenerElementoDeLaLista(lVarietal, iPosicion1, elemento1);
-    obtenerElementoDeLaLista(lVarietal, iPosicion2, elemento2);
-
+int compararMayoresDe50Anios(ELEMENTO elemento1, ELEMENTO elemento2) {
     int iResultado;
     if (getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento1)->mayoresDe50) < getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento2)->mayoresDe50)) {
         iResultado = MENOR;
@@ -270,44 +254,36 @@ int compararMayoresDe50Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
 //------------------------------------------------------------------------Mostrar datos---------------------------------------------------------------------
 
 /*
-    PRE: Debe existir la lista de los varietales y debo indicar la posicion a mostrar.
+    PRE: Debe existir el elemento que deseo mostrar.
     POST: Imprimo los datos del varietal en dicho grupo etario.
  */
-void menoresDe30Anios(Lista* lVarietal, int iPosicion) {
-    ELEMENTO varietal;
-    obtenerElementoDeLaLista(lVarietal, iPosicion, varietal);
+void menoresDe30Anios(ELEMENTO varietal) {
     std::cout << ((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal << ": " << getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) varietal)->menoresDe30) << std::endl;
 }
 
 /*
-    PRE: Debe existir la lista de los varietales y debo indicar la posicion a mostrar.
+    PRE: Debe existir el elemento que deseo mostrar.
     POST: Imprimo los datos del varietal en dicho grupo etario.
  */
-void entre30Y50Anios(Lista* lVarietal, int iPosicion) {
-    ELEMENTO varietal;
-    obtenerElementoDeLaLista(lVarietal, iPosicion, varietal);
+void entre30Y50Anios(ELEMENTO varietal) {
     std::cout << ((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal << ": " << getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) varietal)->entre30Y50) << std::endl;
 }
 
 /*
-    PRE: Debe existir la lista de los varietales y debo indicar la posicion a mostrar.
+    PRE: Debe existir el elemento que deseo mostrar.
     POST: Imprimo los datos del varietal en dicho grupo etario.
  */
-void mayoresDe50Anios(Lista* lVarietal, int iPosicion) {
-    ELEMENTO varietal;
-    obtenerElementoDeLaLista(lVarietal, iPosicion, varietal);
+void mayoresDe50Anios(ELEMENTO varietal) {
     std::cout << ((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal << ": " << getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) varietal)->mayoresDe50) << std::endl;
 }
 
 //------------------------------------------------------------------------Eliminar datos---------------------------------------------------------------------
 
 /*
-    PRE: Debe existir la lista de los varietales y debo indicar la posicion a eliminar.
+    PRE: Debe existir el ELEMENTO que deseo eliminar.
     POST: Elimino el dato del varietal.
  */
-void eliminarDatosDeVarietales(int iPosicion, Lista* lVarietales) {
-    ELEMENTO temp;
-    eliminarElementoDeLaLista(lVarietales, iPosicion, temp);
+void eliminarDatosDeVarietales(ELEMENTO temp) {
     destruirDatoDeVarietal((DatoVarietalPorGrupoEtario*) temp);
 }
 
@@ -325,12 +301,8 @@ void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* 
             ELEMENTO membresia;
             obtenerElementoDeLaLista(innerList, x, membresia);
 
-            identificarVarietalDelVino((Membresia*) membresia, getIDVino1DeLaMembresia, lUsuario, lCatalogos, lVarietales);
-            identificarVarietalDelVino((Membresia*) membresia, getIDVino2DeLaMembresia, lUsuario, lCatalogos, lVarietales);
-            identificarVarietalDelVino((Membresia*) membresia, getIDVino3DeLaMembresia, lUsuario, lCatalogos, lVarietales);
-            identificarVarietalDelVino((Membresia*) membresia, getIDVino4DeLaMembresia, lUsuario, lCatalogos, lVarietales);
-            identificarVarietalDelVino((Membresia*) membresia, getIDVino5DeLaMembresia, lUsuario, lCatalogos, lVarietales);
-            identificarVarietalDelVino((Membresia*) membresia, getIDVino6DeLaMembresia, lUsuario, lCatalogos, lVarietales);
+            for (int j = 0; j < 6; j++)
+                identificarVarietalDelVino((Membresia*) membresia, j, lUsuario, lCatalogos, lVarietales);
         }
     }
 

@@ -17,12 +17,7 @@ struct Membresia {
 
 
 std::string getIDDelUsuarioDeLaMembresia(Membresia*);
-std::string getIDVino1DeLaMembresia(Membresia*);
-std::string getIDVino2DeLaMembresia(Membresia*);
-std::string getIDVino3DeLaMembresia(Membresia*);
-std::string getIDVino4DeLaMembresia(Membresia*);
-std::string getIDVino5DeLaMembresia(Membresia*);
-std::string getIDVino6DeLaMembresia(Membresia*);
+std::string getIDVinoDeLaMembresia(Membresia*, int);
 
 struct DatoRanking {
     std::string id_vino;

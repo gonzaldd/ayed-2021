@@ -112,9 +112,12 @@ void eliminarElementoFinalDeLaLista(Lista*& l, ELEMENTO &dato) {
     }
 }
 
-void mostrarElementosDeLaLista(Lista* l, void mostrarDatos(Lista*, int)) {
+void mostrarElementosDeLaLista(Lista* l, void mostrarDatos(ELEMENTO)) {
+    ELEMENTO temp;
+    
     for (int i = 0; i < getCantidadDeElementosEnLaLista(l); i++) {
-        mostrarDatos(l, i);
+        obtenerElementoDeLaLista(l, i, temp);
+        mostrarDatos(temp);
     }
 }
 
@@ -149,14 +152,18 @@ int descendente(){
     return MENOR;
 }
 
-void reordenarLista(Lista* lista, int comparar(Lista*, int iPosicion1, int iPosicion2), int criterio()) {
+void reordenarLista(Lista* lista, int comparar(ELEMENTO elemento1, ELEMENTO elemento2), int criterio()) {
     int iTamanio = getCantidadDeElementosEnLaLista(lista);
+    ELEMENTO elemento1, elemento2;
 
     for (int i = 0; i < iTamanio; i++) {
 
         for (int j = (i + 1); j < iTamanio; j++) {
 
-            if (comparar(lista, i, j) == criterio())
+            obtenerElementoDeLaLista(lista, i, elemento1);
+            obtenerElementoDeLaLista(lista, j, elemento2);
+
+            if (comparar(elemento1, elemento2) == criterio())
                 invertirElementos(lista, i, j);
 
         }
@@ -170,9 +177,13 @@ void destruirLista(Lista* l){
     delete l;
 }
 
-void destruirListaYDatos(Lista* l, void eliminarDatos(int, Lista*)){
-    for (int i = 0; i < getCantidadDeElementosEnLaLista(l); i++) {
-        eliminarDatos(i, l);
+void destruirListaYDatos(Lista* l, void eliminarDatos(ELEMENTO)) {
+    ELEMENTO temp;
+
+    while (getCantidadDeElementosEnLaLista(l) != 0) {
+        eliminarElementoInicialDeLaLista(l, temp);
+        eliminarDatos(temp);
     }
+
     delete l;
 }

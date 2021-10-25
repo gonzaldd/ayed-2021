@@ -8,28 +8,35 @@ std::string getIDDelUsuarioDeLaMembresia(Membresia* m){
     return m->id_usuario;
 }
 
-std::string getIDVino1DeLaMembresia(Membresia* m){
-    return m->id_vino_1;
-}
+std::string getIDVinoDeLaMembresia(Membresia* m, int iVino) {
+    std::string id_Vino;
 
-std::string getIDVino2DeLaMembresia(Membresia* m){
-    return m->id_vino_2;
-}
+    switch (iVino) {
+        case 0:
+            id_Vino = m->id_vino_1;
+            break;
+        case 1:
+            id_Vino = m->id_vino_2;
+            break;
+        case 2:
+            id_Vino = m->id_vino_3;
+            break;
+        case 3:
+            id_Vino = m->id_vino_4;
+            break;
+        case 4:
+            id_Vino = m->id_vino_5;
+            break;
+        case 5:
+            id_Vino = m->id_vino_6;
+            break;
+        default:
+            id_Vino = "Error";
+            std::cout << "No existe el vino que busca" << std::endl;
+            break;
+    }
 
-std::string getIDVino3DeLaMembresia(Membresia* m){
-    return m->id_vino_3;
-}
-
-std::string getIDVino4DeLaMembresia(Membresia* m){
-    return m->id_vino_4;
-}
-
-std::string getIDVino5DeLaMembresia(Membresia* m){
-    return m->id_vino_5;
-}
-
-std::string getIDVino6DeLaMembresia(Membresia* m){
-    return m->id_vino_6;
+    return id_Vino;
 }
 
 //Devuelve el año del primer nodo de la lista anidada

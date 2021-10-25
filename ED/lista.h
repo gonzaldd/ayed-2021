@@ -105,7 +105,7 @@ void eliminarElementoFinalDeLaLista(Lista*&, ELEMENTO&);
     PRE: La lista debe haber sido creada y debe existir una funcion que muestre 1 tipo de dato en particular.
     POST: Se muestra por consola los datos de todos los elementos que hay en la lista.
 */
-void mostrarElementosDeLaLista(Lista*, void mostrarDatos(Lista*, int));
+void mostrarElementosDeLaLista(Lista*, void mostrarDatos(ELEMENTO));
 
 /*
     PRE: La lista debe haber sido creada.
@@ -120,16 +120,16 @@ void invertirElementos(Lista*, int iPosicion1, int iPosicion2);
 int ascendente();
 
 /*
-    PRE: Debe existir el enum comparacion.
+    PRE: Debe existir el enum COMPARACION.
     POST: Devuelve el valor de MENOR.
 */
 int descendente();
 
 /*
-    PRE: La lista debe haber sido creada y debe exister la funcion que se encargue de comparar segun el criterio.
+    PRE: La lista debe haber sido creada y debe exister la funcion que se encargue de comparar los datos.
     POST: Ordeno la lista en forma ascendente o descendente segun se indique en el tercer parametro.
 */
-void reordenarLista(Lista*, int comparar(Lista*, int iPosicion1, int iPosicion2), int criterio());
+void reordenarLista(Lista*, int comparar(ELEMENTO elemento1, ELEMENTO elemento2), int criterio());
 
 //-----------------------------------------------------------Destructores-------------------------------------------------------
 /*
@@ -142,6 +142,6 @@ void destruirLista(Lista*);
     PRE: La lista debe haber sido creada y debe existir la funcion que elimine un tipo de dato en particular.
     POST: La lista es eliminada y los datos que la formaban tambien son destruidos.
 */
-void destruirListaYDatos(Lista*, void eliminarDatos(int, Lista*));
+void destruirListaYDatos(Lista*, void eliminarDatos(ELEMENTO));
 
 #endif // !LISTA_H

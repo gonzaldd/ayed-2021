@@ -7,7 +7,7 @@
 
 #include "cargarArchivosEnLista.h"
 
-void cargarDatosDeUsuarioEnLaLista(const char* sNombre_Archivo, Lista* &lista) {
+void cargarDatosDeUsuarioEnLaLista(const char* sNombre_Archivo, Lista* lista) {
     std::ifstream Lectura;
     Lectura.open(sNombre_Archivo, std::ios::in);
 
@@ -79,14 +79,11 @@ void cargarDatosDeUsuarioEnLaLista(const char* sNombre_Archivo, Lista* &lista) {
         std::cout << "\nError al abir el archivo" << std::endl;
 }
 
-void mostrarDatoUsuario(Lista* lista, int iPosicion){
-    ELEMENTO usuario;
-    
-    obtenerElementoDeLaLista(lista, iPosicion, usuario);
+void mostrarDatoUsuario(ELEMENTO usuario){
     mostrarUsuario((Usuario*)usuario);
 }
 
-void cargarCatalogoDeVinosEnLaLista(const char* sNombre_Archivo, Lista* &lista) {
+void cargarCatalogoDeVinosEnLaLista(const char* sNombre_Archivo, Lista* lista) {
     std::ifstream Lectura;
     Lectura.open(sNombre_Archivo, std::ios::in);
 
@@ -150,10 +147,7 @@ void cargarCatalogoDeVinosEnLaLista(const char* sNombre_Archivo, Lista* &lista) 
         std::cout << "\nError al abir el archivo" << std::endl;
 }
 
-void mostrarDatoVino(Lista* lista, int iPosicion){
-    ELEMENTO vino;
-    
-    obtenerElementoDeLaLista(lista, iPosicion, vino);
+void mostrarDatoVino(ELEMENTO vino){
     mostrarVino((eVinos*)vino);
     std::cout << LINEA << std::endl;
 }
