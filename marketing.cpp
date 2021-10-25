@@ -102,29 +102,39 @@ Lista* varietalesQueHay(Lista* lCatalogo) {
 }
 
 /*
+    PRE: Debe existir la lista del grupo etario y el usuario.
+    POST: Comparo si el usuario existe o no en la lista y si no esta en la lista lo incorporo (la lista no debe estar vacia).
+ */
+void insertarUsuarioEnLaListaDeSuGrupoSiNoEstaVaciaYNoExisteYaEnElla(Lista* lGrupo_Etario, Usuario* usuario) {
+    bool bUsuario_Existe = false;
+    int iContador = 0;
+    ELEMENTO temp;
+
+    while (iContador < getCantidadDeElementosEnLaLista(lGrupo_Etario) && !bUsuario_Existe) {
+        obtenerElementoDeLaLista(lGrupo_Etario, iContador, temp);
+        iContador++;
+
+        if (usuario == (Usuario*) temp)
+            bUsuario_Existe = true;
+    }
+
+    if (!bUsuario_Existe)
+        insertarElementoAlFinalDeLaLista(lGrupo_Etario, (Usuario*) usuario);
+}
+
+/*
     PRE: Indico el grupo etario del cliente, el varietal y el usuario con los que se debe operar.
     POST: Opero la lista del grupo etario que corresponda agregando el usuario que compro un X varietal si
  * es que el usuario no ha comprado previamente dicho varietal.
  */
 void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPorGrupoEtario* lVarietales, Usuario* usuario) {
-    bool bUsuario_Existe = false;
-    int iContador = 0;
-    ELEMENTO temp;
+
 
     if (sGrupo_Etario == "menoresDe30") {
 
         if (!listaEstaVacia(lVarietales->menoresDe30)) {
 
-            while (iContador < getCantidadDeElementosEnLaLista(lVarietales->menoresDe30) && !bUsuario_Existe) {
-                obtenerElementoDeLaLista(lVarietales->menoresDe30, iContador, temp);
-                iContador++;
-
-                if (usuario == (Usuario*) temp)
-                    bUsuario_Existe = true;
-            }
-
-            if (!bUsuario_Existe)
-                insertarElementoAlFinalDeLaLista(lVarietales->menoresDe30, (Usuario*) usuario);
+            insertarUsuarioEnLaListaDeSuGrupoSiNoEstaVaciaYNoExisteYaEnElla(lVarietales->menoresDe30, usuario);
 
         } else
             insertarElementoAlFinalDeLaLista(lVarietales->menoresDe30, (Usuario*) usuario);
@@ -133,16 +143,7 @@ void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPo
 
         if (!listaEstaVacia(lVarietales->entre30Y50)) {
 
-            while (iContador < getCantidadDeElementosEnLaLista(lVarietales->entre30Y50) && !bUsuario_Existe) {
-                obtenerElementoDeLaLista(lVarietales->entre30Y50, iContador, temp);
-                iContador++;
-
-                if (usuario == (Usuario*) temp)
-                    bUsuario_Existe = true;
-            }
-
-            if (!bUsuario_Existe)
-                insertarElementoAlFinalDeLaLista(lVarietales->entre30Y50, (Usuario*) usuario);
+            insertarUsuarioEnLaListaDeSuGrupoSiNoEstaVaciaYNoExisteYaEnElla(lVarietales->entre30Y50, usuario);
 
         } else
             insertarElementoAlFinalDeLaLista(lVarietales->entre30Y50, (Usuario*) usuario);
@@ -150,16 +151,7 @@ void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPo
     } else {
         if (!listaEstaVacia(lVarietales->mayoresDe50)) {
 
-            while (iContador < getCantidadDeElementosEnLaLista(lVarietales->mayoresDe50) && !bUsuario_Existe) {
-                obtenerElementoDeLaLista(lVarietales->mayoresDe50, iContador, temp);
-                iContador++;
-
-                if (usuario == (Usuario*) temp)
-                    bUsuario_Existe = true;
-            }
-
-            if (!bUsuario_Existe)
-                insertarElementoAlFinalDeLaLista(lVarietales->mayoresDe50, (Usuario*) usuario);
+            insertarUsuarioEnLaListaDeSuGrupoSiNoEstaVaciaYNoExisteYaEnElla(lVarietales->mayoresDe50, usuario);
 
         } else
             insertarElementoAlFinalDeLaLista(lVarietales->mayoresDe50, (Usuario*) usuario);
