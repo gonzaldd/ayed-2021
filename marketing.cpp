@@ -44,40 +44,6 @@ DatoVarietalPorGrupoEtario* crearDatoDeVarietal(std::string sNombre_Del_Varietal
     return d;
 }
 
-//---------------------------------------------------------------------------Getters---------------------------------------------------------------------------
-
-/*
-    PRE: El datoVarietalPorGrupoEtario debe haber sido creado.
-    POST: Devuelve el dato del nombre del varietal.
- */
-std::string getNombreDelVarietal(DatoVarietalPorGrupoEtario* d) {
-    return d->sNombre_Del_Varietal;
-}
-
-/*
-    PRE: El datoVarietalPorGrupoEtario debe haber sido creado.
-    POST: Devuelve la lista de los menores de 30.
- */
-Lista* getListaMenoresDe30(DatoVarietalPorGrupoEtario* d) {
-    return d->menoresDe30;
-}
-
-/*
-    PRE: El datoVarietalPorGrupoEtario debe haber sido creado.
-    POST: Devuelve la lista de los de entre 30 y 50 inclusive.
- */
-Lista* getListaEntre30Y50(DatoVarietalPorGrupoEtario* d) {
-    return d->entre30Y50;
-}
-
-/*
-    PRE: El datoVarietalPorGrupoEtario debe haber sido creado.
-    POST: Devuelve la lista de los mayores de 50.
- */
-Lista* getListaMayoresDe50(DatoVarietalPorGrupoEtario* d) {
-    return d->mayoresDe50;
-}
-
 //------------------------------------------------------------------------Destructor-------------------------------------------------------------------------
 
 /*
@@ -129,7 +95,7 @@ Lista* varietalesQueHay(Lista* lCatalogo) {
         temp = crearDatoDeVarietal(getVarietal((eVinos*) aux));
         insertarElementoAlFinalDeLaLista(lVarietales, (DatoVarietalPorGrupoEtario*) temp);
     }
-    
+
     destruirLista(lAux);
 
     return lVarietales;
@@ -146,12 +112,11 @@ void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPo
     ELEMENTO temp;
 
     if (sGrupo_Etario == "menoresDe30") {
-        Lista* lAux = getListaMenoresDe30(lVarietales);
 
-        if (!listaEstaVacia(lAux)) {
+        if (!listaEstaVacia(lVarietales->menoresDe30)) {
 
-            while (iContador < getCantidadDeElementosEnLaLista(lAux) && !bUsuario_Existe) {
-                obtenerElementoDeLaLista(lAux, iContador, temp);
+            while (iContador < getCantidadDeElementosEnLaLista(lVarietales->menoresDe30) && !bUsuario_Existe) {
+                obtenerElementoDeLaLista(lVarietales->menoresDe30, iContador, temp);
                 iContador++;
 
                 if (usuario == (Usuario*) temp)
@@ -159,18 +124,17 @@ void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPo
             }
 
             if (!bUsuario_Existe)
-                insertarElementoAlFinalDeLaLista(lAux, (Usuario*) usuario);
+                insertarElementoAlFinalDeLaLista(lVarietales->menoresDe30, (Usuario*) usuario);
 
         } else
-            insertarElementoAlFinalDeLaLista(lAux, (Usuario*) usuario);
+            insertarElementoAlFinalDeLaLista(lVarietales->menoresDe30, (Usuario*) usuario);
 
     } else if (sGrupo_Etario == "entre30Y50") {
-        Lista* lAux = getListaEntre30Y50(lVarietales);
 
-        if (!listaEstaVacia(lAux)) {
+        if (!listaEstaVacia(lVarietales->entre30Y50)) {
 
-            while (iContador < getCantidadDeElementosEnLaLista(lAux) && !bUsuario_Existe) {
-                obtenerElementoDeLaLista(lAux, iContador, temp);
+            while (iContador < getCantidadDeElementosEnLaLista(lVarietales->entre30Y50) && !bUsuario_Existe) {
+                obtenerElementoDeLaLista(lVarietales->entre30Y50, iContador, temp);
                 iContador++;
 
                 if (usuario == (Usuario*) temp)
@@ -178,18 +142,16 @@ void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPo
             }
 
             if (!bUsuario_Existe)
-                insertarElementoAlFinalDeLaLista(lAux, (Usuario*) usuario);
+                insertarElementoAlFinalDeLaLista(lVarietales->entre30Y50, (Usuario*) usuario);
 
         } else
-            insertarElementoAlFinalDeLaLista(lAux, (Usuario*) usuario);
+            insertarElementoAlFinalDeLaLista(lVarietales->entre30Y50, (Usuario*) usuario);
 
     } else {
-        Lista* lAux = getListaMayoresDe50(lVarietales);
+        if (!listaEstaVacia(lVarietales->mayoresDe50)) {
 
-        if (!listaEstaVacia(lAux)) {
-
-            while (iContador < getCantidadDeElementosEnLaLista(lAux) && !bUsuario_Existe) {
-                obtenerElementoDeLaLista(lAux, iContador, temp);
+            while (iContador < getCantidadDeElementosEnLaLista(lVarietales->mayoresDe50) && !bUsuario_Existe) {
+                obtenerElementoDeLaLista(lVarietales->mayoresDe50, iContador, temp);
                 iContador++;
 
                 if (usuario == (Usuario*) temp)
@@ -197,10 +159,10 @@ void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPo
             }
 
             if (!bUsuario_Existe)
-                insertarElementoAlFinalDeLaLista(lAux, (Usuario*) usuario);
+                insertarElementoAlFinalDeLaLista(lVarietales->mayoresDe50, (Usuario*) usuario);
 
         } else
-            insertarElementoAlFinalDeLaLista(lAux, (Usuario*) usuario);
+            insertarElementoAlFinalDeLaLista(lVarietales->mayoresDe50, (Usuario*) usuario);
     }
 
 }
@@ -234,7 +196,7 @@ void identificarVarietalDelVino(Membresia* membresia, std::string getIDVinoDeLaM
         obtenerElementoDeLaLista(lVarietales, iContador3, varietal);
         iContador3++;
 
-        if (getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) == getVarietal((eVinos*) vino))
+        if (((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal == getVarietal((eVinos*) vino))
             bVarietal_Encontrado = true;
     }
 
@@ -249,6 +211,7 @@ void identificarVarietalDelVino(Membresia* membresia, std::string getIDVinoDeLaM
 }
 
 //------------------------------------------------------------Funciones de ordenar rankig------------------------------------------------------------
+
 /*
     PRE: Debe existir la lista de los varietales y debo indicar 2 posicion a comparar.
     POST: Comparo los datos e indico si son mayores, menores e iguales.
@@ -260,9 +223,9 @@ int compararMenoresDe30Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
     obtenerElementoDeLaLista(lVarietal, iPosicion2, elemento2);
 
     int iResultado;
-    if (getCantidadDeElementosEnLaLista(getListaMenoresDe30((DatoVarietalPorGrupoEtario*) elemento1)) < getCantidadDeElementosEnLaLista(getListaMenoresDe30((DatoVarietalPorGrupoEtario*) elemento2))) {
+    if (getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento1)->menoresDe30) < getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento2)->menoresDe30)) {
         iResultado = MENOR;
-    } else if (getCantidadDeElementosEnLaLista(getListaMenoresDe30((DatoVarietalPorGrupoEtario*) elemento1)) > getCantidadDeElementosEnLaLista(getListaMenoresDe30((DatoVarietalPorGrupoEtario*) elemento2))) {
+    } else if (getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento1)->menoresDe30) > getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento2)->menoresDe30)) {
         iResultado = MAYOR;
     } else
         iResultado = IGUAL;
@@ -281,9 +244,9 @@ int compararEntre30Y50Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
     obtenerElementoDeLaLista(lVarietal, iPosicion2, elemento2);
 
     int iResultado;
-    if (getCantidadDeElementosEnLaLista(getListaEntre30Y50((DatoVarietalPorGrupoEtario*) elemento1)) < getCantidadDeElementosEnLaLista(getListaEntre30Y50((DatoVarietalPorGrupoEtario*) elemento2))) {
+    if (getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento1)->entre30Y50) < getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento2)->entre30Y50)) {
         iResultado = MENOR;
-    } else if (getCantidadDeElementosEnLaLista(getListaEntre30Y50((DatoVarietalPorGrupoEtario*) elemento1)) > getCantidadDeElementosEnLaLista(getListaEntre30Y50((DatoVarietalPorGrupoEtario*) elemento2))) {
+    } else if (getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento1)->entre30Y50) > getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento2)->entre30Y50)) {
         iResultado = MAYOR;
     } else
         iResultado = IGUAL;
@@ -302,9 +265,9 @@ int compararMayoresDe50Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
     obtenerElementoDeLaLista(lVarietal, iPosicion2, elemento2);
 
     int iResultado;
-    if (getCantidadDeElementosEnLaLista(getListaMayoresDe50((DatoVarietalPorGrupoEtario*) elemento1)) < getCantidadDeElementosEnLaLista(getListaMayoresDe50((DatoVarietalPorGrupoEtario*) elemento2))) {
+    if (getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento1)->mayoresDe50) < getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento2)->mayoresDe50)) {
         iResultado = MENOR;
-    } else if (getCantidadDeElementosEnLaLista(getListaMayoresDe50((DatoVarietalPorGrupoEtario*) elemento1)) > getCantidadDeElementosEnLaLista(getListaMayoresDe50((DatoVarietalPorGrupoEtario*) elemento2))) {
+    } else if (getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento1)->mayoresDe50) > getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento2)->mayoresDe50)) {
         iResultado = MAYOR;
     } else
         iResultado = IGUAL;
@@ -321,7 +284,7 @@ int compararMayoresDe50Anios(Lista* lVarietal, int iPosicion1, int iPosicion2) {
 void menoresDe30Anios(Lista* lVarietal, int iPosicion) {
     ELEMENTO varietal;
     obtenerElementoDeLaLista(lVarietal, iPosicion, varietal);
-    std::cout << getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) << ": " << getCantidadDeElementosEnLaLista(getListaMenoresDe30((DatoVarietalPorGrupoEtario*) varietal)) << std::endl;
+    std::cout << ((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal << ": " << getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) varietal)->menoresDe30) << std::endl;
 }
 
 /*
@@ -331,7 +294,7 @@ void menoresDe30Anios(Lista* lVarietal, int iPosicion) {
 void entre30Y50Anios(Lista* lVarietal, int iPosicion) {
     ELEMENTO varietal;
     obtenerElementoDeLaLista(lVarietal, iPosicion, varietal);
-    std::cout << getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) << ": " << getCantidadDeElementosEnLaLista(getListaEntre30Y50((DatoVarietalPorGrupoEtario*) varietal)) << std::endl;
+    std::cout << ((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal << ": " << getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) varietal)->entre30Y50) << std::endl;
 }
 
 /*
@@ -341,16 +304,17 @@ void entre30Y50Anios(Lista* lVarietal, int iPosicion) {
 void mayoresDe50Anios(Lista* lVarietal, int iPosicion) {
     ELEMENTO varietal;
     obtenerElementoDeLaLista(lVarietal, iPosicion, varietal);
-    std::cout << getNombreDelVarietal((DatoVarietalPorGrupoEtario*) varietal) << ": " << getCantidadDeElementosEnLaLista(getListaMayoresDe50((DatoVarietalPorGrupoEtario*) varietal)) << std::endl;
+    std::cout << ((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal << ": " << getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) varietal)->mayoresDe50) << std::endl;
 }
 
 //------------------------------------------------------------------------Eliminar datos---------------------------------------------------------------------
+
 /*
     PRE: Debe existir la lista de los varietales y debo indicar la posicion a eliminar.
     POST: Elimino el dato del varietal.
  */
 void eliminarDatosDeVarietales(int iPosicion, Lista* lVarietales) {
-    ELEMENTO temp;    
+    ELEMENTO temp;
     eliminarElementoDeLaLista(lVarietales, iPosicion, temp);
     destruirDatoDeVarietal((DatoVarietalPorGrupoEtario*) temp);
 }
