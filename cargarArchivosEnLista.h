@@ -8,7 +8,7 @@
 void cargarDatosDeUsuarioEnLaLista(const char*, Lista*);
 
 /*
-    PRE: La lista debe haber sido creada.
+    PRE: Debe existir el elemento que se desea mostrar y debe ser un usuario.
     POST: Muestro un dato de la lista de tipo usuario segun la posicion de la lista.
 */
 void mostrarDatoUsuario(ELEMENTO);
@@ -20,7 +20,7 @@ void mostrarDatoUsuario(ELEMENTO);
 void cargarCatalogoDeVinosEnLaLista(const char*, Lista*);
 
 /*
-    PRE: La lista debe haber sido creada.
+    PRE: Debe existir el elemento que se desea mostrar y debe ser un vino.
     POST: Muestro un dato de la lista de tipo vino segun la posicion de la lista.
 */
 void mostrarDatoVino(ELEMENTO);
