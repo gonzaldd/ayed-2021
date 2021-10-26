@@ -254,7 +254,7 @@ int compararMayoresDe50Anios(ELEMENTO elemento1, ELEMENTO elemento2) {
 //------------------------------------------------------------------------Mostrar datos---------------------------------------------------------------------
 
 /*
-    PRE: Debe existir el elemento que deseo mostrar.
+    PRE: Debe existir el elemento que deseo mostrar y debe ser un DatoVarietalPorGrupoEtario.
     POST: Imprimo los datos del varietal en dicho grupo etario.
  */
 void menoresDe30Anios(ELEMENTO varietal) {
@@ -262,7 +262,7 @@ void menoresDe30Anios(ELEMENTO varietal) {
 }
 
 /*
-    PRE: Debe existir el elemento que deseo mostrar.
+    PRE: Debe existir el elemento que deseo mostrar y debe ser un DatoVarietalPorGrupoEtario.
     POST: Imprimo los datos del varietal en dicho grupo etario.
  */
 void entre30Y50Anios(ELEMENTO varietal) {
@@ -270,7 +270,7 @@ void entre30Y50Anios(ELEMENTO varietal) {
 }
 
 /*
-    PRE: Debe existir el elemento que deseo mostrar.
+    PRE: Debe existir el elemento que deseo mostrar y debe ser un DatoVarietalPorGrupoEtario.
     POST: Imprimo los datos del varietal en dicho grupo etario.
  */
 void mayoresDe50Anios(ELEMENTO varietal) {
@@ -280,7 +280,7 @@ void mayoresDe50Anios(ELEMENTO varietal) {
 //------------------------------------------------------------------------Eliminar datos---------------------------------------------------------------------
 
 /*
-    PRE: Debe existir el ELEMENTO que deseo eliminar.
+    PRE: Debe existir el ELEMENTO que deseo eliminar el cual debe ser un DatoVarietalPorGrupoEtario.
     POST: Elimino el dato del varietal.
  */
 void eliminarDatosDeVarietales(ELEMENTO temp) {
@@ -301,7 +301,7 @@ void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* 
             ELEMENTO membresia;
             obtenerElementoDeLaLista(innerList, x, membresia);
 
-            for (int j = 0; j < 6; j++)
+            for (int j = 0; j < CANT_SELECCION; j++)
                 identificarVarietalDelVino((Membresia*) membresia, j, lUsuario, lCatalogos, lVarietales);
         }
     }

@@ -115,21 +115,21 @@ void invertirElementos(Lista*, int iPosicion1, int iPosicion2);
 
 /*
     PRE: Debe existir el enum COMPARACION.
-    POST: Devuelve el valor de MAYOR.
+    POST: Indica si los datos deben ser invertidos o no de posiciones en base al criterio.
 */
-int ascendente();
+bool ascendente(int);
 
 /*
     PRE: Debe existir el enum COMPARACION.
-    POST: Devuelve el valor de MENOR.
+    POST: Indica si los datos deben ser invertidos o no de posiciones en base al criterio.
 */
-int descendente();
+bool descendente(int);
 
 /*
     PRE: La lista debe haber sido creada y debe exister la funcion que se encargue de comparar los datos.
     POST: Ordeno la lista en forma ascendente o descendente segun se indique en el tercer parametro.
 */
-void reordenarLista(Lista*, int comparar(ELEMENTO elemento1, ELEMENTO elemento2), int criterio());
+void reordenarLista(Lista*, int comparar(ELEMENTO elemento1, ELEMENTO elemento2), bool criterio(int));
 
 //-----------------------------------------------------------Destructores-------------------------------------------------------
 /*

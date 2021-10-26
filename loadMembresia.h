@@ -3,6 +3,10 @@
 #include <iostream>
 #include "ED/lista.h"
 
+#ifndef CANT_SELECCION
+#define CANT_SELECCION 6
+#endif // !CANT_SELECCION
+
 struct Membresia {
     std::string id_usuario;
     std::string mes;

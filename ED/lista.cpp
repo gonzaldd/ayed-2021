@@ -144,15 +144,15 @@ void invertirElementos(Lista* lista, int iPosicion1, int iPosicion2) {
     }
 }
 
-int ascendente(){
-    return MAYOR;
+bool ascendente(int iComparacion) {
+    return (iComparacion == MAYOR) ? true : false;
 }
 
-int descendente(){
-    return MENOR;
+bool descendente(int iComparacion) {
+    return (iComparacion == MENOR) ? true : false;
 }
 
-void reordenarLista(Lista* lista, int comparar(ELEMENTO elemento1, ELEMENTO elemento2), int criterio()) {
+void reordenarLista(Lista* lista, int comparar(ELEMENTO elemento1, ELEMENTO elemento2), bool criterio(int)) {
     int iTamanio = getCantidadDeElementosEnLaLista(lista);
     ELEMENTO elemento1, elemento2;
 
@@ -163,7 +163,7 @@ void reordenarLista(Lista* lista, int comparar(ELEMENTO elemento1, ELEMENTO elem
             obtenerElementoDeLaLista(lista, i, elemento1);
             obtenerElementoDeLaLista(lista, j, elemento2);
 
-            if (comparar(elemento1, elemento2) == criterio())
+            if (criterio(comparar(elemento1, elemento2)))
                 invertirElementos(lista, i, j);
 
         }
