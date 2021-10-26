@@ -25,6 +25,9 @@ struct DatoVarietalPorGrupoEtario {
     Lista* menoresDe30;
     Lista* entre30Y50;
     Lista* mayoresDe50;
+    int iCantidad_De_Ventas_Menores_De_30;
+    int iCantidad_De_Ventas_Entre_30_Y_50;
+    int iCantidad_De_Ventas_Mayores_De_50;
 };
 
 //------------------------------------------------------------------------Constructor------------------------------------------------------------------------
@@ -40,6 +43,9 @@ DatoVarietalPorGrupoEtario* crearDatoDeVarietal(std::string sNombre_Del_Varietal
     d->menoresDe30 = crearLista();
     d->entre30Y50 = crearLista();
     d->mayoresDe50 = crearLista();
+    d->iCantidad_De_Ventas_Menores_De_30 = 0;
+    d->iCantidad_De_Ventas_Entre_30_Y_50 = 0;
+    d->iCantidad_De_Ventas_Mayores_De_50 = 0;
 
     return d;
 }
@@ -124,36 +130,40 @@ void insertarUsuarioEnLaListaDeSuGrupoSiNoEstaVaciaYNoExisteYaEnElla(Lista* lGru
 
 /*
     PRE: Indico el grupo etario del cliente, el varietal y el usuario con los que se debe operar.
-    POST: Opero la lista del grupo etario que corresponda agregando el usuario que compro un X varietal si es que el usuario no ha comprado previamente dicho varietal.
+    POST: Opero la lista del grupo etario que corresponda agregando el usuario que compro un X varietal si es que el usuario no ha comprado previamente dicho varietal e incremento la cantidad de ventas del varietal en su grupo en 1.
  */
-void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPorGrupoEtario* lVarietales, Usuario* usuario) {
+void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPorGrupoEtario* varietales, Usuario* usuario) {
 
 
     if (sGrupo_Etario == "menoresDe30") {
+        varietales->iCantidad_De_Ventas_Menores_De_30++;
 
-        if (!listaEstaVacia(lVarietales->menoresDe30)) {
+        if (!listaEstaVacia(varietales->menoresDe30)) {
 
-            insertarUsuarioEnLaListaDeSuGrupoSiNoEstaVaciaYNoExisteYaEnElla(lVarietales->menoresDe30, usuario);
+            insertarUsuarioEnLaListaDeSuGrupoSiNoEstaVaciaYNoExisteYaEnElla(varietales->menoresDe30, usuario);
 
         } else
-            insertarElementoAlFinalDeLaLista(lVarietales->menoresDe30, (Usuario*) usuario);
+            insertarElementoAlFinalDeLaLista(varietales->menoresDe30, (Usuario*) usuario);
 
     } else if (sGrupo_Etario == "entre30Y50") {
+        varietales->iCantidad_De_Ventas_Entre_30_Y_50++;
 
-        if (!listaEstaVacia(lVarietales->entre30Y50)) {
+        if (!listaEstaVacia(varietales->entre30Y50)) {
 
-            insertarUsuarioEnLaListaDeSuGrupoSiNoEstaVaciaYNoExisteYaEnElla(lVarietales->entre30Y50, usuario);
+            insertarUsuarioEnLaListaDeSuGrupoSiNoEstaVaciaYNoExisteYaEnElla(varietales->entre30Y50, usuario);
 
         } else
-            insertarElementoAlFinalDeLaLista(lVarietales->entre30Y50, (Usuario*) usuario);
+            insertarElementoAlFinalDeLaLista(varietales->entre30Y50, (Usuario*) usuario);
 
     } else {
-        if (!listaEstaVacia(lVarietales->mayoresDe50)) {
+        varietales->iCantidad_De_Ventas_Mayores_De_50++;
+        
+        if (!listaEstaVacia(varietales->mayoresDe50)) {
 
-            insertarUsuarioEnLaListaDeSuGrupoSiNoEstaVaciaYNoExisteYaEnElla(lVarietales->mayoresDe50, usuario);
+            insertarUsuarioEnLaListaDeSuGrupoSiNoEstaVaciaYNoExisteYaEnElla(varietales->mayoresDe50, usuario);
 
         } else
-            insertarElementoAlFinalDeLaLista(lVarietales->mayoresDe50, (Usuario*) usuario);
+            insertarElementoAlFinalDeLaLista(varietales->mayoresDe50, (Usuario*) usuario);
     }
 
 }
@@ -209,9 +219,9 @@ void identificarVarietalDelVino(Membresia* membresia, int iNumero_De_Vino, Lista
  */
 int compararMenoresDe30Anios(ELEMENTO elemento1, ELEMENTO elemento2) {
     int iResultado;
-    if (getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento1)->menoresDe30) < getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento2)->menoresDe30)) {
+    if (((DatoVarietalPorGrupoEtario*) elemento1)->iCantidad_De_Ventas_Menores_De_30 < ((DatoVarietalPorGrupoEtario*) elemento2)->iCantidad_De_Ventas_Menores_De_30) {
         iResultado = MENOR;
-    } else if (getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento1)->menoresDe30) > getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento2)->menoresDe30)) {
+    } else if (((DatoVarietalPorGrupoEtario*) elemento1)->iCantidad_De_Ventas_Menores_De_30 > ((DatoVarietalPorGrupoEtario*) elemento2)->iCantidad_De_Ventas_Menores_De_30) {
         iResultado = MAYOR;
     } else
         iResultado = IGUAL;
@@ -225,9 +235,9 @@ int compararMenoresDe30Anios(ELEMENTO elemento1, ELEMENTO elemento2) {
  */
 int compararEntre30Y50Anios(ELEMENTO elemento1, ELEMENTO elemento2) {
     int iResultado;
-    if (getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento1)->entre30Y50) < getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento2)->entre30Y50)) {
+    if (((DatoVarietalPorGrupoEtario*) elemento1)->iCantidad_De_Ventas_Entre_30_Y_50 < ((DatoVarietalPorGrupoEtario*) elemento2)->iCantidad_De_Ventas_Entre_30_Y_50) {
         iResultado = MENOR;
-    } else if (getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento1)->entre30Y50) > getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento2)->entre30Y50)) {
+    } else if (((DatoVarietalPorGrupoEtario*) elemento1)->iCantidad_De_Ventas_Entre_30_Y_50 > ((DatoVarietalPorGrupoEtario*) elemento2)->iCantidad_De_Ventas_Entre_30_Y_50) {
         iResultado = MAYOR;
     } else
         iResultado = IGUAL;
@@ -241,9 +251,9 @@ int compararEntre30Y50Anios(ELEMENTO elemento1, ELEMENTO elemento2) {
  */
 int compararMayoresDe50Anios(ELEMENTO elemento1, ELEMENTO elemento2) {
     int iResultado;
-    if (getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento1)->mayoresDe50) < getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento2)->mayoresDe50)) {
+    if (((DatoVarietalPorGrupoEtario*) elemento1)->iCantidad_De_Ventas_Mayores_De_50 < ((DatoVarietalPorGrupoEtario*) elemento2)->iCantidad_De_Ventas_Mayores_De_50) {
         iResultado = MENOR;
-    } else if (getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento1)->mayoresDe50) > getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) elemento2)->mayoresDe50)) {
+    } else if (((DatoVarietalPorGrupoEtario*) elemento1)->iCantidad_De_Ventas_Mayores_De_50 > ((DatoVarietalPorGrupoEtario*) elemento2)->iCantidad_De_Ventas_Mayores_De_50) {
         iResultado = MAYOR;
     } else
         iResultado = IGUAL;
@@ -258,7 +268,10 @@ int compararMayoresDe50Anios(ELEMENTO elemento1, ELEMENTO elemento2) {
     POST: Imprimo los datos del varietal en dicho grupo etario.
  */
 void menoresDe30Anios(ELEMENTO varietal) {
-    std::cout << ((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal << ": " << getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) varietal)->menoresDe30) << std::endl;
+    std::cout << ((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal << ": " << std::endl;
+    std::cout << "\tCantidad de ventas: " << ((DatoVarietalPorGrupoEtario*) varietal)->iCantidad_De_Ventas_Menores_De_30 << std::endl;
+    std::cout << "\tCantidad de personas: " << getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) varietal)->menoresDe30) << std::endl;
+    std::cout << LINEA << std::endl;
 }
 
 /*
@@ -266,7 +279,10 @@ void menoresDe30Anios(ELEMENTO varietal) {
     POST: Imprimo los datos del varietal en dicho grupo etario.
  */
 void entre30Y50Anios(ELEMENTO varietal) {
-    std::cout << ((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal << ": " << getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) varietal)->entre30Y50) << std::endl;
+    std::cout << ((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal << ": " << std::endl;
+    std::cout << "\tCantidad de ventas: " << ((DatoVarietalPorGrupoEtario*) varietal)->iCantidad_De_Ventas_Entre_30_Y_50 << std::endl;
+    std::cout << "\tCantidad de personas: " << getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) varietal)->entre30Y50) << std::endl;
+    std::cout << LINEA << std::endl;
 }
 
 /*
@@ -274,7 +290,10 @@ void entre30Y50Anios(ELEMENTO varietal) {
     POST: Imprimo los datos del varietal en dicho grupo etario.
  */
 void mayoresDe50Anios(ELEMENTO varietal) {
-    std::cout << ((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal << ": " << getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) varietal)->mayoresDe50) << std::endl;
+    std::cout << ((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal << ": " << std::endl;
+    std::cout << "\tCantidad de ventas: " << ((DatoVarietalPorGrupoEtario*) varietal)->iCantidad_De_Ventas_Mayores_De_50 << std::endl;
+    std::cout << "\tCantidad de personas: " << getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) varietal)->mayoresDe50) << std::endl;
+    std::cout << LINEA << std::endl;
 }
 
 //------------------------------------------------------------------------Eliminar datos---------------------------------------------------------------------
