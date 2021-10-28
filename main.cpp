@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
     std::cout << std::endl << std::endl << std::endl << LINEA << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\t\t\tRANKINGS\n" << LINEA << std::endl << LINEA << std::endl << LINEA << std::endl;
     rankingVinosUltimoAnio(lMembresia);
     rankingVarietalesPorGrupoEtario(lMembresia, lUsuarios, lCatalogo);
-
+    
     destruirListaYDatos(lUsuarios, eliminarDatoUsuario);
     destruirListaYDatos(lCatalogo, eliminarDatoVino);
     
