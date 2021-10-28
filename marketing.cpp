@@ -69,6 +69,9 @@ void destruirDatoDeVarietal(DatoVarietalPorGrupoEtario* d) {
     delete d;
 }
 
+//-------------------------------------------------------------------Funciones extras--------------------------------------------------------------------
+
+
 //------------------------------------------------------------Encontrar elementos------------------------------------------------------------------
 
 /*
@@ -110,8 +113,6 @@ bool compararIDDelUsuarioConElDeLaMembresia(ELEMENTO dato, ELEMENTO elemento) {
 bool compararNombreDelVarietalDelVinoConElDelDatoGrupoEtario(ELEMENTO dato, ELEMENTO elemento) {
     return (getVarietal((eVinos*) dato) == ((DatoVarietalPorGrupoEtario*) elemento)->sNombre_Del_Varietal) ? true : false;
 }
-
-//-------------------------------------------------------------------Funciones extras--------------------------------------------------------------------
 
 /*
     PRE: Debe existir la lista de catalogos.
