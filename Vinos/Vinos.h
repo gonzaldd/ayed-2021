@@ -69,37 +69,37 @@ std::string getTerroir(eVinos* vinos);
 //---------------------------------------------------------------------------Setters----------------------------------------------------------------------------
 /*
     PRE: El vino debe haber sido creado.
-    POST: El nombre del vino es modificado por el dato ingresado en la bodega segun se indique.
+    POST: La bodega del vino es modificado por el dato ingresado en la bodega segun se indique.
 */
 void setBodega(std::string bodega, eVinos* vinos);
 
 /*
     PRE: El vino debe haber sido creado.
-    POST: El nombre del vino es modificado por el dato ingresado en la etiqueta segun se indique.
+    POST: La etiqueta del vino es modificado por el dato ingresado en la etiqueta segun se indique.
 */
 void setEtiqueta(std::string etiqueta, eVinos* vinos);
 
 /*
     PRE: El vino debe haber sido creado.
-    POST: El nombre del vino es modificado por el dato ingresado en el varietal segun se indique.
+    POST: El varietal del vino es modificado por el dato ingresado en el varietal segun se indique.
 */
 void setVarietal(std::string varietal, eVinos* vinos);
 
 /*
     PRE: El vino debe haber sido creado.
-    POST: El nombre del vino es modificado por el dato ingresado en el seg_vino segun se indique.
+    POST: El seg_vino del vino es modificado por el dato ingresado en el seg_vino segun se indique.
 */
 void setSeg_vino(std::string seg_vino, eVinos* vinos);
 
 /*
     PRE: El vino debe haber sido creado.
-    POST: El nombre del vino es modificado por el dato ingresado en el anio_cosecha segun se indique.
+    POST: El anio_cosecha del vino es modificado por el dato ingresado en el anio_cosecha segun se indique.
 */
 void setAnio_cosecha(int anio_cosecha, eVinos* vinos);
 
 /*
     PRE: El vino debe haber sido creado.
-    POST: El nombre del vino es modificado por el dato ingresado en el terroir segun se indique.
+    POST: El terroir del vino es modificado por el dato ingresado en el terroir segun se indique.
 */
 void setTerroir(std::string terroir, eVinos* vinos);
 
