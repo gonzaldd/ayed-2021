@@ -25,6 +25,8 @@ std::string getIDVinoDeLaMembresia(Membresia*, int);
 
 struct DatoRanking {
     std::string id_vino;
+    std::string nombre_vino;
+    std::string nombre_bodega;
     int contador = 0;
 };
 
@@ -50,6 +52,6 @@ void readFileAndLoad(std::string path, Lista *lista);
 
 void showMembresiaList(Lista *lista);
 
-void rankingVinosUltimoAnio(Lista *listaAnioMembresias);
+void rankingVinosUltimoAnio(Lista *listaAnioMembresias, Lista *listaVinos);
 
 #endif // LOADMEMBRESIA_H_INCLUDED

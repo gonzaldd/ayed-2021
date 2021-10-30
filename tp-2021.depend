@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1634672274 source:/home/gonzalo/Ayed-2021/ayed-2021/main.cpp
+1635616408 source:/home/gonzalo/Ayed-2021/ayed-2021/main.cpp
 	<iostream>
+	"ED/lista.h"
 	"Usuario/usuario.h"
 	"Vinos/Vinos.h"
 	"loadMembresia.h"
 	"cargarArchivosEnLista.h"
-	"ED/lista.h"
 	"marketing.h"
 
 1633545045 /home/gonzalo/Ayed-2021/ayed-2021/Lista.h
@@ -13,14 +13,15 @@
 1633476407 source:/home/gonzalo/Ayed-2021/ayed-2021/Lista.cpp
 	"Lista.h"
 
-1634671999 /home/gonzalo/Ayed-2021/ayed-2021/loadMembresia.h
+1635297315 /home/gonzalo/Ayed-2021/ayed-2021/loadMembresia.h
 	<iostream>
 	"ED/lista.h"
 
-1634672047 source:/home/gonzalo/Ayed-2021/ayed-2021/loadMembresia.cpp
+1635618385 source:/home/gonzalo/Ayed-2021/ayed-2021/loadMembresia.cpp
 	<fstream>
 	<algorithm>
 	"loadMembresia.h"
+	<string.h>
 
 1633648266 source:/home/gonzalo/Ayed-2021/ayed-2021/lista/lista.cpp
 	<iostream>
@@ -35,7 +36,7 @@
 	<iostream>
 	"Nodo.h"
 
-1634169298 /home/gonzalo/Ayed-2021/ayed-2021/ED/lista.h
+1635281471 /home/gonzalo/Ayed-2021/ayed-2021/ED/lista.h
 	"Nodo/Nodo.h"
 
 1634612702 /home/gonzalo/Ayed-2021/ayed-2021/ED/Nodo/Nodo.h
@@ -72,11 +73,11 @@
 1633992446 /home/gonzalo/Desktop/ayed-2021/ED/pila.h
 	"Nodo/Nodo.h"
 
-1634169298 source:/home/gonzalo/Ayed-2021/ayed-2021/ED/lista.cpp
+1635281471 source:/home/gonzalo/Ayed-2021/ayed-2021/ED/lista.cpp
 	<iostream>
 	"lista.h"
 
-1634169298 source:/home/gonzalo/Ayed-2021/ayed-2021/ED/Nodo/Nodo.cpp
+1635281471 source:/home/gonzalo/Ayed-2021/ayed-2021/ED/Nodo/Nodo.cpp
 	<iostream>
 	"Nodo.h"
 
@@ -128,11 +129,11 @@
 
 1634612702 /home/gonzalo/Ayed-2021/ayed-2021/Vinos/Vinos.h
 
-1634612702 /home/gonzalo/Ayed-2021/ayed-2021/cargarArchivosEnLista.h
+1635281471 /home/gonzalo/Ayed-2021/ayed-2021/cargarArchivosEnLista.h
 
-1634612702 /home/gonzalo/Ayed-2021/ayed-2021/marketing.h
+1635281471 /home/gonzalo/Ayed-2021/ayed-2021/marketing.h
 
-1634612702 source:/home/gonzalo/Ayed-2021/ayed-2021/cargarArchivosEnLista.cpp
+1635281471 source:/home/gonzalo/Ayed-2021/ayed-2021/cargarArchivosEnLista.cpp
 	<iostream>
 	<fstream>
 	"Usuario/usuario.h"
@@ -140,7 +141,7 @@
 	"ED/lista.h"
 	"cargarArchivosEnLista.h"
 
-1634672248 source:/home/gonzalo/Ayed-2021/ayed-2021/marketing.cpp
+1635281471 source:/home/gonzalo/Ayed-2021/ayed-2021/marketing.cpp
 	<iostream>
 	"ED/lista.h"
 	"loadMembresia.h"

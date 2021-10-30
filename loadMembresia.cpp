@@ -1,10 +1,11 @@
 #include <fstream>
 #include <algorithm>
 #include "loadMembresia.h"
+#include <string.h>
 
 using namespace std;
 
-std::string getIDDelUsuarioDeLaMembresia(Membresia* m){
+std::string getIDDelUsuarioDeLaMembresia(Membresia* m) {
     return m->id_usuario;
 }
 
@@ -12,28 +13,28 @@ std::string getIDVinoDeLaMembresia(Membresia* m, int iVino) {
     std::string id_Vino;
 
     switch (iVino) {
-        case 0:
-            id_Vino = m->id_vino_1;
-            break;
-        case 1:
-            id_Vino = m->id_vino_2;
-            break;
-        case 2:
-            id_Vino = m->id_vino_3;
-            break;
-        case 3:
-            id_Vino = m->id_vino_4;
-            break;
-        case 4:
-            id_Vino = m->id_vino_5;
-            break;
-        case 5:
-            id_Vino = m->id_vino_6;
-            break;
-        default:
-            id_Vino = "Error";
-            std::cout << "No existe el vino que busca" << std::endl;
-            break;
+    case 0:
+        id_Vino = m->id_vino_1;
+        break;
+    case 1:
+        id_Vino = m->id_vino_2;
+        break;
+    case 2:
+        id_Vino = m->id_vino_3;
+        break;
+    case 3:
+        id_Vino = m->id_vino_4;
+        break;
+    case 4:
+        id_Vino = m->id_vino_5;
+        break;
+    case 5:
+        id_Vino = m->id_vino_6;
+        break;
+    default:
+        id_Vino = "Error";
+        std::cout << "No existe el vino que busca" << std::endl;
+        break;
     }
 
     return id_Vino;
@@ -53,6 +54,22 @@ Lista* createNewYearList(Membresia *membresia, Lista* lista) {
     insertarElementoAlFinalDeLaLista(listaAnio, membresia);
 
     return listaAnio;
+}
+
+/*
+    PRE: Deben existir los 2 elementos que deseo comparar.
+    POST: Comparo los datos e indico si son mayores, menores e iguales.
+ */
+int comparadorCantVinos(ELEMENTO elemento1, ELEMENTO elemento2) {
+    int iResultado;
+    if (((DatoRanking*) elemento1)->contador < ((DatoRanking*) elemento2)->contador) {
+        iResultado = MENOR;
+    } else if (((DatoRanking*) elemento1)->contador > ((DatoRanking*) elemento2)->contador) {
+        iResultado = MAYOR;
+    } else
+        iResultado = IGUAL;
+
+    return iResultado;
 }
 
 //return [id_usuario, mes, anio, id_vino_1, id_vino2, ...]
@@ -78,24 +95,17 @@ std::string* splitStrByChar(std::string str, std::string del) {
         position++;
     }
     values[8] = str.substr(start, endStr - start);
-
-    /*for(int i = 0; i< 9; i++) {
-        std::cout << values[i] << " " << std::endl;
-        if(i == 9)
-            cout << "" << endl;
-    }*/
-
     return values;
 }
 
 DatoRanking* findInList(Lista *lista, string id_vino) {
     DatoRanking *encontrado = 0;
 
-    for(int i = 0; i < getCantidadDeElementosEnLaLista(lista) && !(bool)encontrado; i++){
+    for(int i = 0; i < getCantidadDeElementosEnLaLista(lista) && !(bool)encontrado; i++) {
         ELEMENTO voidElement;
         obtenerElementoDeLaLista(lista, i, voidElement);
 
-        if(((DatoRanking*)voidElement)->id_vino.compare(id_vino) == 0)
+        if(stoi(((DatoRanking*)voidElement)->id_vino) == stoi(id_vino))
             encontrado = (DatoRanking*)voidElement;
     }
 
@@ -107,41 +117,43 @@ void readFileAndLoad(std::string path, Lista *lista) {
     std::string linea;
 
     while (getline(archivo, linea)) {
-        std::string *valores = splitStrByChar(linea, "-");
+        if(linea.length() > 1) {
+            std::string *valores = splitStrByChar(linea, "-");
 
-        //crear membresia
-        Membresia *membresia = new Membresia();
+            //crear membresia
+            Membresia *membresia = new Membresia();
 
-        membresia->id_usuario = valores[0];
-        membresia->mes = valores[1];
-        membresia->anio = valores[2];
-        membresia->id_vino_1 = valores[3];
-        membresia->id_vino_2 = valores[4];
-        membresia->id_vino_3 = valores[5];
-        membresia->id_vino_4 = valores[6];
-        membresia->id_vino_5 = valores[7];
-        membresia->id_vino_6 = valores[8];
+            membresia->id_usuario = valores[0];
+            membresia->mes = valores[1];
+            membresia->anio = valores[2];
+            membresia->id_vino_1 = valores[3];
+            membresia->id_vino_2 = valores[4];
+            membresia->id_vino_3 = valores[5];
+            membresia->id_vino_4 = valores[6];
+            membresia->id_vino_5 = valores[7];
+            membresia->id_vino_6 = valores[8];
 
-        if(listaEstaVacia(lista)) {
-            Lista *yearList = createNewYearList(membresia, lista);
-            insertarElementoAlFinalDeLaLista(lista, yearList);
-        } else {
-            bool insertado = false;
-
-            for(int i = 0; i < getCantidadDeElementosEnLaLista(lista) && !insertado; i++){
-                ELEMENTO innerElemento;
-                obtenerElementoDeLaLista(lista, i, innerElemento);
-
-                if(membresia->anio.compare(getYearOfList((Lista*)innerElemento)) == 0){
-                    Lista *innerList = (Lista*)innerElemento;
-                    insertarElementoAlFinalDeLaLista(innerList, membresia);
-                    insertado = true;
-                }
-            }
-
-            if(!insertado) {
+            if(listaEstaVacia(lista)) {
                 Lista *yearList = createNewYearList(membresia, lista);
                 insertarElementoAlFinalDeLaLista(lista, yearList);
+            } else {
+                bool insertado = false;
+
+                for(int i = 0; i < getCantidadDeElementosEnLaLista(lista) && !insertado; i++) {
+                    ELEMENTO innerElemento;
+                    obtenerElementoDeLaLista(lista, i, innerElemento);
+
+                    if(membresia->anio.compare(getYearOfList((Lista*)innerElemento)) == 0) {
+                        Lista *innerList = (Lista*)innerElemento;
+                        insertarElementoAlFinalDeLaLista(innerList, membresia);
+                        insertado = true;
+                    }
+                }
+
+                if(!insertado) {
+                    Lista *yearList = createNewYearList(membresia, lista);
+                    insertarElementoAlFinalDeLaLista(lista, yearList);
+                }
             }
         }
     }
@@ -171,8 +183,9 @@ void showMembresiaList(Lista *listaMembresia) {
     }
 }
 
-void rankingVinosUltimoAnio(Lista *listaAnioMembresias) {
+void rankingVinosUltimoAnio(Lista *listaAnioMembresias, Lista *listaVinos) {
     int maxYear = 0;
+    int contadorTotalVinos = 0;
     Lista *listaRanking = crearLista();
     Lista *listaMembresias = NULL;
 
@@ -187,12 +200,11 @@ void rankingVinosUltimoAnio(Lista *listaAnioMembresias) {
         }
     }
 
-    cout << "Ranking de vinos (" << maxYear << ")" << endl;
     for(int i = 0; i < getCantidadDeElementosEnLaLista(listaMembresias); i++) {
         ELEMENTO membresia;
         obtenerElementoDeLaLista(listaMembresias, i, membresia);
 
-        string idVinoArr[] = {
+        std::string idVinoArr[] {
             ((Membresia*)membresia)->id_vino_1,
             ((Membresia*)membresia)->id_vino_2,
             ((Membresia*)membresia)->id_vino_3,
@@ -200,6 +212,7 @@ void rankingVinosUltimoAnio(Lista *listaAnioMembresias) {
             ((Membresia*)membresia)->id_vino_5,
             ((Membresia*)membresia)->id_vino_6
         };
+
 
         for(int i = 0; i < 6; i++) {
             if(!findInList(listaRanking, idVinoArr[i])) {
@@ -215,9 +228,16 @@ void rankingVinosUltimoAnio(Lista *listaAnioMembresias) {
         }
     }
 
+    cout << "Ranking de vinos (" << maxYear << ")" << endl;
+    cout << "Puesto\t" << "Etiqueta\t" << "Cantidad\t" << endl;
+    reordenarLista(listaRanking, comparadorCantVinos, descendente);
     for(int i = 0; i < getCantidadDeElementosEnLaLista(listaRanking); i++) {
         ELEMENTO vino;
         obtenerElementoDeLaLista(listaRanking, i, vino);
-        cout << ((DatoRanking*)vino)->id_vino << " " << ((DatoRanking*)vino)->contador << endl;
+
+        std::cout << i+1 << '\t' << ((DatoRanking*)vino)->id_vino << "\t\t" << ((DatoRanking*)vino)->contador <<std::endl;;
+        contadorTotalVinos += ((DatoRanking*)vino)->contador;
     }
+
+    cout << "\nTotal vinos: " << contadorTotalVinos << endl;
 }
