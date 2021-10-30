@@ -91,18 +91,10 @@ bool compararUsuario(ELEMENTO dato, ELEMENTO elemento) {
 }
 
 /*
-    PRE: El primer ELEMENTO debe ser el id del vino y el segundo debe ser un vino, el primero es el que deseo buscar.
+    PRE: El primer ELEMENTO debe ser un const char y el segundo debe ser un usuario/vino (segun corresponda), el primero es el que deseo buscar.
     POST: Devuelvo true si ambos datos son iguales.
  */
-bool compararIDDelVinoConElDeLaMembresia(ELEMENTO dato, ELEMENTO elemento) {
-    return ((int) dato == (int) getId((eVinos*) elemento)) ? true : false;
-}
-
-/*
-    PRE: El primer ELEMENTO debe ser un const char y el segundo debe ser un usuario, el primero es el que deseo buscar.
-    POST: Devuelvo true si ambos datos son iguales.
- */
-bool compararIDDelUsuarioConElDeLaMembresia(ELEMENTO dato, ELEMENTO elemento) {
+bool compararIDDelUsuarioOVinoConElDeLaMembresia(ELEMENTO dato, ELEMENTO elemento) {
     return (strcmp((const char*) dato, (const char*) getID((Usuario*) elemento).c_str()) == IGUAL) ? true : false;
 }
 
@@ -184,8 +176,8 @@ void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPo
 void identificarVarietalDelVino(Membresia* membresia, int iNumero_De_Vino, Lista* lUsuario, Lista* lCatalogos, Lista* lVarietales) {
     ELEMENTO vino, usuario, varietal;
     
-    obtenerElementoDeLaLista(lCatalogos, buscarElementoEnLaLista(lCatalogos, (int*)stoi(getIDVinoDeLaMembresia(membresia, iNumero_De_Vino)), compararIDDelVinoConElDeLaMembresia), vino);
-    obtenerElementoDeLaLista(lUsuario, buscarElementoEnLaLista(lUsuario, (const char**)getIDDelUsuarioDeLaMembresia(membresia).c_str(), compararIDDelUsuarioConElDeLaMembresia), usuario);
+    obtenerElementoDeLaLista(lCatalogos, buscarElementoEnLaLista(lCatalogos, (const char**)getIDVinoDeLaMembresia(membresia, iNumero_De_Vino).c_str(), compararIDDelUsuarioOVinoConElDeLaMembresia), vino);
+    obtenerElementoDeLaLista(lUsuario, buscarElementoEnLaLista(lUsuario, (const char**)getIDDelUsuarioDeLaMembresia(membresia).c_str(), compararIDDelUsuarioOVinoConElDeLaMembresia), usuario);
     obtenerElementoDeLaLista(lVarietales, buscarElementoEnLaLista(lVarietales, vino, compararNombreDelVarietalDelVinoConElDelDatoGrupoEtario), varietal);
 
     if (getEdadUsuario((Usuario*) usuario) < 30)

@@ -17,7 +17,7 @@ typedef struct {
 
 /*------------------------------------------------------------------------Constructor------------------------------------------------------------------------
     PRE: El usuario no debe haber sido creado.
-    POST: El usuaio queda creado.
+    POST: El usuario queda creado.
 */
 Usuario* crearUsuario(std::string sID, std::string sNombre, std::string sApellido, std::string sDireccion,
         std::string sLocalidad, std::string sProvincia, int iEdad);
