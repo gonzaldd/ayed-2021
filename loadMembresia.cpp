@@ -2,6 +2,7 @@
 #include <algorithm>
 #include "loadMembresia.h"
 #include <string.h>
+#include "Vinos/Vinos.h"
 
 using namespace std;
 
@@ -40,7 +41,6 @@ std::string getIDVinoDeLaMembresia(Membresia* m, int iVino) {
     return id_Vino;
 }
 
-//Devuelve el año del primer nodo de la lista anidada
 string getYearOfList(void *lista) {
     ELEMENTO innerList;
     obtenerElementoInicialDeLaLista((Lista*)lista, innerList);
@@ -57,22 +57,13 @@ Lista* createNewYearList(Membresia *membresia, Lista* lista) {
 }
 
 /*
-    PRE: Deben existir los 2 elementos que deseo comparar.
-    POST: Comparo los datos e indico si son mayores, menores e iguales.
- */
-int comparadorCantVinos(ELEMENTO elemento1, ELEMENTO elemento2) {
-    int iResultado;
-    if (((DatoRanking*) elemento1)->contador < ((DatoRanking*) elemento2)->contador) {
-        iResultado = MENOR;
-    } else if (((DatoRanking*) elemento1)->contador > ((DatoRanking*) elemento2)->contador) {
-        iResultado = MAYOR;
-    } else
-        iResultado = IGUAL;
+  pre : str debe contener los datos necesarios para cargar una membresia.
+  post: Se limpia y separa str en cada uno de los datos para la membresia.
 
-    return iResultado;
-}
-
-//return [id_usuario, mes, anio, id_vino_1, id_vino2, ...]
+  str : Cadena a la cual se va a quitar espacios, tabs y luego separarla.
+  del : Cadena que separa los datos de str.
+  return Array[8] string con los datos de la membresia [id_usuario, mes, anio, id_vino_1, id_vino2, ...]
+*/
 std::string* splitStrByChar(std::string str, std::string del) {
     int start;
     int endStr;
@@ -98,20 +89,7 @@ std::string* splitStrByChar(std::string str, std::string del) {
     return values;
 }
 
-DatoRanking* findInList(Lista *lista, string id_vino) {
-    DatoRanking *encontrado = 0;
-
-    for(int i = 0; i < getCantidadDeElementosEnLaLista(lista) && !(bool)encontrado; i++) {
-        ELEMENTO voidElement;
-        obtenerElementoDeLaLista(lista, i, voidElement);
-
-        if(stoi(((DatoRanking*)voidElement)->id_vino) == stoi(id_vino))
-            encontrado = (DatoRanking*)voidElement;
-    }
-
-    return encontrado;
-}
-
+//Carga los datos del archivo en la lista de membresias
 void readFileAndLoad(std::string path, Lista *lista) {
     std::ifstream archivo(path.c_str());
     std::string linea;
@@ -133,16 +111,19 @@ void readFileAndLoad(std::string path, Lista *lista) {
             membresia->id_vino_5 = valores[7];
             membresia->id_vino_6 = valores[8];
 
+            //Si la lista esta vacia, se crea un nodo con el año y se inserta
             if(listaEstaVacia(lista)) {
                 Lista *yearList = createNewYearList(membresia, lista);
                 insertarElementoAlFinalDeLaLista(lista, yearList);
             } else {
                 bool insertado = false;
 
+                //Se recorre la lista mientras i sea menor al tamaño y no se haya insertado el dato
                 for(int i = 0; i < getCantidadDeElementosEnLaLista(lista) && !insertado; i++) {
                     ELEMENTO innerElemento;
                     obtenerElementoDeLaLista(lista, i, innerElemento);
 
+                    //Se comparan los años de la membresia creada y la de la lista, si coinciden se inserta y se setea insertado= true
                     if(membresia->anio.compare(getYearOfList((Lista*)innerElemento)) == 0) {
                         Lista *innerList = (Lista*)innerElemento;
                         insertarElementoAlFinalDeLaLista(innerList, membresia);
@@ -150,6 +131,7 @@ void readFileAndLoad(std::string path, Lista *lista) {
                     }
                 }
 
+                //Si al terminar de recorrer la lista no se inserto el dato, significa que no existe ese año, entonces se lo crea y agrega.
                 if(!insertado) {
                     Lista *yearList = createNewYearList(membresia, lista);
                     insertarElementoAlFinalDeLaLista(lista, yearList);
@@ -181,63 +163,4 @@ void showMembresiaList(Lista *listaMembresia) {
         }
         cout << '\n';
     }
-}
-
-void rankingVinosUltimoAnio(Lista *listaAnioMembresias, Lista *listaVinos) {
-    int maxYear = 0;
-    int contadorTotalVinos = 0;
-    Lista *listaRanking = crearLista();
-    Lista *listaMembresias = NULL;
-
-
-    for(int i = 0; i < getCantidadDeElementosEnLaLista(listaAnioMembresias); i++) {
-        ELEMENTO innerList;
-        obtenerElementoDeLaLista(listaAnioMembresias, i, innerList);
-
-        if(stoi(getYearOfList(innerList)) > maxYear) {
-            maxYear = stoi(getYearOfList(innerList));
-            listaMembresias = (Lista*)innerList;
-        }
-    }
-
-    for(int i = 0; i < getCantidadDeElementosEnLaLista(listaMembresias); i++) {
-        ELEMENTO membresia;
-        obtenerElementoDeLaLista(listaMembresias, i, membresia);
-
-        std::string idVinoArr[] {
-            ((Membresia*)membresia)->id_vino_1,
-            ((Membresia*)membresia)->id_vino_2,
-            ((Membresia*)membresia)->id_vino_3,
-            ((Membresia*)membresia)->id_vino_4,
-            ((Membresia*)membresia)->id_vino_5,
-            ((Membresia*)membresia)->id_vino_6
-        };
-
-
-        for(int i = 0; i < 6; i++) {
-            if(!findInList(listaRanking, idVinoArr[i])) {
-                DatoRanking *vino = new DatoRanking();
-                vino->id_vino = idVinoArr[i];
-                vino->contador++;
-
-                insertarElementoAlFinalDeLaLista(listaRanking, vino);
-            } else {
-                DatoRanking *vinoEnRanking = findInList(listaRanking, idVinoArr[i]);
-                vinoEnRanking->contador++;
-            }
-        }
-    }
-
-    cout << "Ranking de vinos (" << maxYear << ")" << endl;
-    cout << "Puesto\t" << "Etiqueta\t" << "Cantidad\t" << endl;
-    reordenarLista(listaRanking, comparadorCantVinos, descendente);
-    for(int i = 0; i < getCantidadDeElementosEnLaLista(listaRanking); i++) {
-        ELEMENTO vino;
-        obtenerElementoDeLaLista(listaRanking, i, vino);
-
-        std::cout << i+1 << '\t' << ((DatoRanking*)vino)->id_vino << "\t\t" << ((DatoRanking*)vino)->contador <<std::endl;;
-        contadorTotalVinos += ((DatoRanking*)vino)->contador;
-    }
-
-    cout << "\nTotal vinos: " << contadorTotalVinos << endl;
 }

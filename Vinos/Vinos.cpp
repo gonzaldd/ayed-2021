@@ -4,18 +4,8 @@
 
 using namespace std;
 
-struct eVinos{
-    int id;
-    string bodega;
-    string etiqueta;
-    string varietal;
-    string seg_vino;    //segmento del vino
-    int anio_cosecha;
-    string terroir;  //es el tipo de tierra en la cual crece el vino
-};
-
-Marca crearVino(int id, string bodega, string etiqueta, string varietal, string seg_vino, int anio, string terroir){
-    struct eVinos* marca = new eVinos();
+eVinos* crearVino(string id, string bodega, string etiqueta, string varietal, string seg_vino, int anio, string terroir){
+    eVinos* marca = new eVinos();
     
     marca->id = id;
     marca->bodega = bodega;
@@ -34,11 +24,11 @@ void mostrarVino(eVinos* Marca){
     cout << "\tBodega: " << getBodega(Marca) << endl;
     cout << "\tSegmento del vino: " << getSeg_vino(Marca) << endl;
     cout << "\tVarietal: " << getVarietal(Marca) << endl;
-    cout << "\tAño: " << getAnio_cosecha(Marca) << endl;
+    cout << "\tAño de cosecha: " << getAnio_cosecha(Marca) << endl;
     cout << "\tTerroir: " << getTerroir(Marca) << endl;
 }
 
-int getId(eVinos* vinos){
+string getId(eVinos* vinos){
     return vinos->id;
 };
 

@@ -3,6 +3,8 @@
 
 #include "Nodo/Nodo.h"
 
+#define ELEMENTO_NO_ENCONTRADO -1
+
 enum COMPARACION {
     MENOR = -1,
     IGUAL,
@@ -130,6 +132,12 @@ bool descendente(int);
     POST: Ordeno la lista en forma ascendente o descendente segun se indique en el tercer parametro.
 */
 void reordenarLista(Lista*, int comparar(ELEMENTO elemento1, ELEMENTO elemento2), bool criterio(int));
+
+/*
+    PRE: La lista debe haber sido creada, debe existir el dato que deseo buscar y, además, debe existir una funcion que se encargue de comparar si 2 elementos son o no iguales (pueden ser TD o TDA).
+    POST: Indico la posicion de donde se encuentra el elemento en la lista o ELEMENTO_NO_ENCONTRADO(-1) si es que la lista no existe.
+ */
+int buscarElementoEnLaLista(Lista*, ELEMENTO dato_Buscado, bool comparar(ELEMENTO dato_Buscado, ELEMENTO elemento));
 
 //-----------------------------------------------------------Destructores-------------------------------------------------------
 /*

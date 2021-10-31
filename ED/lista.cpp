@@ -2,6 +2,8 @@
 
 #include "lista.h"
 
+#define ELEMENTO_NO_ENCONTRADO -1
+
 //-----------------------------------------------------------Constructor-------------------------------------------------------
 
 Lista* crearLista() {
@@ -168,6 +170,22 @@ void reordenarLista(Lista* lista, int comparar(ELEMENTO elemento1, ELEMENTO elem
 
         }
     }
+}
+
+int buscarElementoEnLaLista(Lista* lista, ELEMENTO dato_Buscado, bool comparar(ELEMENTO dato_Buscado, ELEMENTO elemento)) {
+    int iContador = 0, iPosicion = ELEMENTO_NO_ENCONTRADO;
+    ELEMENTO aux;
+
+    while ((iContador < lista->iTamanio_Lista) && (iPosicion == ELEMENTO_NO_ENCONTRADO)) {
+        obtenerElementoDeLaLista(lista, iContador, aux);
+
+        if (comparar(dato_Buscado, aux))
+            iPosicion = iContador;
+        
+        iContador++;
+    }
+
+    return iPosicion;
 }
 
 //-----------------------------------------------------------Destructores-------------------------------------------------------

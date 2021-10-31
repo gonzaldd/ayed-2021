@@ -136,7 +136,7 @@ void cargarCatalogoDeVinosEnLaLista(const char* sNombre_Archivo, Lista* lista) {
             }
             sTerroir = sTerroir.substr(2, sTerroir.length());
 
-            ELEMENTO v = crearVino(stoi(sID), sBodega, sEtiqueta, sVarietal, sSegmento, stoi(sAnio), sTerroir);
+            ELEMENTO v = crearVino(sID, sBodega, sEtiqueta, sVarietal, sSegmento, stoi(sAnio), sTerroir);
             insertarElementoAlFinalDeLaLista(lista, (eVinos*) v);
 
             Lectura >> sLector; //ID o eof
