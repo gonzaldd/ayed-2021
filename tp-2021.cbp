@@ -38,9 +38,23 @@
 		<Unit filename="ED/lista.h" />
 		<Unit filename="ED/pila.cpp" />
 		<Unit filename="ED/pila.h" />
+		<Unit filename="Rankings/Rankings.cpp" />
+		<Unit filename="Rankings/Rankings.h" />
+		<Unit filename="Usuario/Domicilio/domicilio.cpp" />
+		<Unit filename="Usuario/Domicilio/domicilio.h" />
+		<Unit filename="Usuario/Nombre/nombre.cpp" />
+		<Unit filename="Usuario/Nombre/nombre.h" />
+		<Unit filename="Usuario/usuario.cpp" />
+		<Unit filename="Usuario/usuario.h" />
+		<Unit filename="Vinos/Vinos.cpp" />
+		<Unit filename="Vinos/Vinos.h" />
+		<Unit filename="cargarArchivosEnLista.cpp" />
+		<Unit filename="cargarArchivosEnLista.h" />
 		<Unit filename="loadMembresia.cpp" />
 		<Unit filename="loadMembresia.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="marketing.cpp" />
+		<Unit filename="marketing.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

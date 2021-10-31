@@ -3,6 +3,14 @@
 
 #include "Nodo/Nodo.h"
 
+#define ELEMENTO_NO_ENCONTRADO -1
+
+enum COMPARACION {
+    MENOR = -1,
+    IGUAL,
+    MAYOR
+};
+
 struct Lista {
     Nodo* inicio;
     int iTamanio_Lista;
@@ -94,5 +102,54 @@ void eliminarElementoDeLaLista(Lista*&, int iPosicion, ELEMENTO&);
     POST: Remuevo y almaceno en una variable el ELEMENTO que poseo al final de la lista.
 */
 void eliminarElementoFinalDeLaLista(Lista*&, ELEMENTO&);
+
+/*
+    PRE: La lista debe haber sido creada y debe existir una funcion que muestre 1 tipo de dato en particular.
+    POST: Se muestra por consola los datos de todos los elementos que hay en la lista.
+*/
+void mostrarElementosDeLaLista(Lista*, void mostrarDatos(ELEMENTO));
+
+/*
+    PRE: La lista debe haber sido creada.
+    POST: Invierto los elementos de la lista si es que ambas posiciones existen en la lista.
+*/
+void invertirElementos(Lista*, int iPosicion1, int iPosicion2);
+
+/*
+    PRE: Debe existir el enum COMPARACION.
+    POST: Indica si los datos deben ser invertidos o no de posiciones en base al criterio.
+*/
+bool ascendente(int);
+
+/*
+    PRE: Debe existir el enum COMPARACION.
+    POST: Indica si los datos deben ser invertidos o no de posiciones en base al criterio.
+*/
+bool descendente(int);
+
+/*
+    PRE: La lista debe haber sido creada y debe exister la funcion que se encargue de comparar los datos.
+    POST: Ordeno la lista en forma ascendente o descendente segun se indique en el tercer parametro.
+*/
+void reordenarLista(Lista*, int comparar(ELEMENTO elemento1, ELEMENTO elemento2), bool criterio(int));
+
+/*
+    PRE: La lista debe haber sido creada, debe existir el dato que deseo buscar y, además, debe existir una funcion que se encargue de comparar si 2 elementos son o no iguales (pueden ser TD o TDA).
+    POST: Indico la posicion de donde se encuentra el elemento en la lista o ELEMENTO_NO_ENCONTRADO(-1) si es que la lista no existe.
+ */
+int buscarElementoEnLaLista(Lista*, ELEMENTO dato_Buscado, bool comparar(ELEMENTO dato_Buscado, ELEMENTO elemento));
+
+//-----------------------------------------------------------Destructores-------------------------------------------------------
+/*
+    PRE: La lista debe haber sido creada.
+    POST: La lista es eliminada pero sin eliminar los datos que la formaban.
+*/
+void destruirLista(Lista*);
+
+/*
+    PRE: La lista debe haber sido creada y debe existir la funcion que elimine un tipo de dato en particular.
+    POST: La lista es eliminada y los datos que la formaban tambien son destruidos.
+*/
+void destruirListaYDatos(Lista*, void eliminarDatos(ELEMENTO));
 
 #endif // !LISTA_H

@@ -2,6 +2,11 @@
 #define LOADMEMBRESIA_H_INCLUDED
 #include <iostream>
 #include "ED/lista.h"
+#include <string.h>
+
+#ifndef CANT_SELECCION
+#define CANT_SELECCION 6
+#endif // !CANT_SELECCION
 
 struct Membresia {
     std::string id_usuario;
@@ -15,6 +20,10 @@ struct Membresia {
     std::string id_vino_6;
 };
 
+
+std::string getIDDelUsuarioDeLaMembresia(Membresia*);
+std::string getIDVinoDeLaMembresia(Membresia*, int);
+
 /*
   pre : lista fue creada con crearLista().
   post: Si el path es correcto, se leera linea a linea para extraer sus datos,
@@ -26,17 +35,17 @@ struct Membresia {
 void readFileAndLoad(std::string path, Lista *lista);
 
 /*
-  pre : str debe contener los datos necesarios para cargar una membresia.
-  post: Se limpia y separa str en cada uno de los datos para la membresia.
+  pre : lista fue creada con crearLista().
+  post: se muestra en pantalla el contenido de una lista de membresias.
 
-  str : Cadena a la cual se va a quitar espacios, tabs y luego separarla.
-  del : Cadena que separa los datos de str.
-  return Array[8] string con los datos de la membresia
+  lista : lista donde se encuentran los datos cargados.
 */
-std::string* splitStrByChar(std::string str, std::string del);
-
-Membresia* getInnerMembresia(Nodo *nodo);
-
 void showMembresiaList(Lista *lista);
+
+/*
+    PRE: Deben existir la lista de membresias.
+    POST: devuelve el año del primer nodo de la lista anidada.
+ */
+std::string getYearOfList(void *lista);
 
 #endif // LOADMEMBRESIA_H_INCLUDED
