@@ -10,11 +10,6 @@
 
 #include "marketing.h"
 
-//------------------------------------------------------------Funciones utiles a todo------------------------------------------------------------------
-
-//Aca hay que colocar las funciones extras del 3er ranking que puedan ser utiles para los otros 2
-//rankings
-
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------
                                                   Ranking general de vinos del ultimo año
  --------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -60,9 +55,9 @@ bool compararIdVino(ELEMENTO dato, ELEMENTO elemento) {
     return stoi(*(std::string*)dato) == stoi(((eVinos*)elemento)->id);
 }
 
-Lista* rankingVinosUltimoAnio(Lista *listaAnioMembresias, Lista *listaVinos) {
-    int maxYear = 0;
-    int contadorTotalVinos = 0;
+Lista* listaParaHacerLosRankings(Lista *listaAnioMembresias, Lista *listaVinos, int &maxYear, int &contadorTotalVinos) {
+    maxYear = 0;
+    contadorTotalVinos = 0;
     Lista *listaRanking = crearLista();
     Lista *listaMembresias = NULL;
 
@@ -119,6 +114,12 @@ Lista* rankingVinosUltimoAnio(Lista *listaAnioMembresias, Lista *listaVinos) {
         }
     }
 
+    
+
+    return listaRanking;
+}
+
+void rankingVinosUltimoAnio(Lista* listaRanking,  int maxYear, int contadorTotalVinos){
     std::cout << "Ranking de vinos (" << maxYear << ")" << std::endl;
     std::cout << "Puesto\t" << "ID\t"<< "Etiqueta\t" << "  Cantidad\t" << std::endl;
     //Ordena la lista del ranking
@@ -133,8 +134,6 @@ Lista* rankingVinosUltimoAnio(Lista *listaAnioMembresias, Lista *listaVinos) {
     }
 
     std::cout << "\nTotal vinos: " << contadorTotalVinos << std::endl;
-
-    return listaRanking;
 }
 
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -153,7 +152,7 @@ DatoRanking* findInListByBodega(Lista *lista, std::string bodega) {
     return encontrado;
 }
 
-void rankingBodegasUltimoAnio(Lista *listaRankingVinos) {
+void rankingBodegasUltimoAnio(Lista *listaRankingVinos, int maxYear) {
     int contadorVinos = 0;
     Lista* rankingBodegas = crearLista();
 
@@ -175,7 +174,7 @@ void rankingBodegasUltimoAnio(Lista *listaRankingVinos) {
         }
     }
 
-    std::cout << "\nRanking bodegas ultimo año " << std::endl;
+    std::cout << "\nRanking bodegas (" << maxYear << ")" << std::endl;
     std::cout << "Posición\t" << "Bodega\t\t\t" << "Cantidad de vinos"<< std::endl;
     reordenarLista(rankingBodegas, comparadorContadorRanking, descendente);
     for(int i = 0; i < getCantidadDeElementosEnLaLista(rankingBodegas); i++) {
@@ -261,7 +260,7 @@ bool compararUsuario(ELEMENTO dato, ELEMENTO elemento) {
     POST: Devuelvo true si ambos datos son iguales.
  */
 bool compararIDDelUsuarioOVinoConElDeLaMembresia(ELEMENTO dato, ELEMENTO elemento) {
-    return (strcmp((const char*) dato, (const char*) getID((Usuario*) elemento).c_str()) == IGUAL) ? true : false;
+    return (strcmp((const char*) dato, (const char*)getID((Usuario*) elemento).c_str()) == IGUAL) ? true : false;
 }
 
 /*

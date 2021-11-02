@@ -11,10 +11,7 @@
 void eliminarDatoUsuario(ELEMENTO);
 void eliminarDatoVino(ELEMENTO);
 
-int main(int argc, char** argv) {
-
-    Lista* listaVinosUltimoAnio = 0;
-    std::string opcion;
+int main(int argc, char** argv) { 
 
     Lista* lUsuarios = crearLista();
     cargarDatosDeUsuarioEnLaLista("Archivos/usuarios_test.txt", lUsuarios);
@@ -24,17 +21,22 @@ int main(int argc, char** argv) {
 
     Lista* lMembresia = crearLista();
     readFileAndLoad("Archivos/elecion_test.txt", lMembresia);
+    
+    int maxYear, contadorTotalVinos;
+    Lista* listaVinosUltimoAnio = listaParaHacerLosRankings(lMembresia, lCatalogo, maxYear, contadorTotalVinos);
 
+    std::string opcion;
     while(opcion.compare("0") != 0) {
-        std::cout << "Ingrese una opción:" << std::endl;
-        std::cout << "1. Mostrar usuarios" << std::endl;
-        std::cout << "2. Mostrar catalogo de vinos" << std::endl;
-        std::cout << "3. Mostrar membresias" << std::endl;
-        std::cout << "4. Ranking de vinos del ultimo año" << std::endl;
-        std::cout << "5. Ranking de bodegas del ultimo año" << std::endl;
-        std::cout << "6. Ranking de varietales por grupo etario" << std::endl;
-        std::cout << "0. Salir" << std::endl;
-
+        std::cout << "Opciones:" << std::endl;
+        std::cout << "\t1: Mostrar usuarios" << std::endl;
+        std::cout << "\t2: Mostrar catalogo de vinos" << std::endl;
+        std::cout << "\t3: Mostrar membresias" << std::endl;
+        std::cout << "\t4: Ranking de vinos del ultimo año" << std::endl;
+        std::cout << "\t5: Ranking de bodegas del ultimo año" << std::endl;
+        std::cout << "\t6: Ranking de varietales por grupo etario" << std::endl;
+        std::cout << "\t0: Salir" << std::endl;
+        std::cout << "Ingrese una opción: ";
+        
         getline(std::cin, opcion);
         if(opcion.compare("1") == 0) {
             std::cout << LINEA << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\t\t    Lista de usuarios\n" << LINEA << std::endl << LINEA << std::endl << LINEA << std::endl;
@@ -46,23 +48,25 @@ int main(int argc, char** argv) {
             std::cout << std::endl << std::endl << std::endl << LINEA << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\t\t\tMembresias\n" << LINEA << std::endl << LINEA << std::endl << LINEA << std::endl;
             showMembresiaList(lMembresia);
         } else if(opcion.compare("4") == 0) {
-            listaVinosUltimoAnio = rankingVinosUltimoAnio(lMembresia, lCatalogo);
+            rankingVinosUltimoAnio(listaVinosUltimoAnio, maxYear, contadorTotalVinos);
             std::cout << std::endl;
-        } else if(opcion.compare("5") == 0) {
-            if(listaVinosUltimoAnio == 0) {
-                std::cout << "\nATENCION!!" << std::endl;
-                std::cout << "Se debe ejecutar el ranking de vinos del ultimo año antes de poder ver los resultados\n" << std::endl;
-            } else {
-                rankingBodegasUltimoAnio(listaVinosUltimoAnio);
-                std::cout << std::endl;
-            }
-        } else if(opcion.compare("6") == 0) {
+        } else if (opcion.compare("5") == 0) {
+            rankingBodegasUltimoAnio(listaVinosUltimoAnio, maxYear);
+            std::cout << std::endl;
+        } else if (opcion.compare("6") == 0) {
             rankingVarietalesPorGrupoEtario(lMembresia, lUsuarios, lCatalogo);
-        }
+        } else if (opcion == "0") {
+            std::cout << "Gracias por utilizar el programa :)" << std::endl << std::endl;
+        } else
+            std::cout << "Opcion no valida\a" << std::endl << std::endl;
+        
+        std::cout << std::endl << std::endl;
     }
-
+    
+    
     destruirListaYDatos(lUsuarios, eliminarDatoUsuario);
     destruirListaYDatos(lCatalogo, eliminarDatoVino);
+    
     return EXIT_SUCCESS;
 }
 
