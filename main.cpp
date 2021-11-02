@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
         } else if (opcion.compare("6") == 0) {
             rankingVarietalesPorGrupoEtario(lMembresia, lUsuarios, lCatalogo);
         } else if (opcion == "0") {
-            std::cout << "Gracias por utilizar el programa :)" << std::endl << std::endl;
+            std::cout << std::endl << std::endl << "Gracias por utilizar el programa :)";
         } else
             std::cout << "Opcion no valida\a" << std::endl << std::endl;
         

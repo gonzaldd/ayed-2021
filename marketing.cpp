@@ -405,7 +405,43 @@ int compararMayoresDe50Anios(ELEMENTO elemento1, ELEMENTO elemento2) {
     return iResultado;
 }
 
+/*
+    PRE: Deben existir los 2 elementos que deseo comparar.
+    POST: Comparo los datos e indico si son mayores, menores e iguales.
+ */
+int compararIDClientes(ELEMENTO elemento1, ELEMENTO elemento2) {
+    int iResultado;
+    if (((Usuario*) elemento1)->sID < ((Usuario*) elemento2)->sID) {
+        iResultado = MENOR;
+    } else if (((Usuario*) elemento1)->sID > ((Usuario*)elemento2)->sID) {
+        iResultado = MAYOR;
+    } else
+        iResultado = IGUAL;
+
+    return iResultado;
+}
+
 //------------------------------------------------------------------------Mostrar datos---------------------------------------------------------------------
+
+/*
+    PRE: Debe existir la lista de clientes que compraron el varietal del DatoVarietalPorGrupoEtario.
+    POST: Imprimo los datos de los clientes que compraron dicho varietal.
+ */
+void mostrarClientesEnElGrupoEtario(Lista* lista) {
+    ELEMENTO usuario;
+    float fEdadPromedio = 0;
+
+    reordenarLista(lista, compararIDClientes, ascendente);
+    for (int i = 0; i < getCantidadDeElementosEnLaLista(lista); i++) {
+        obtenerElementoDeLaLista(lista, i, usuario);
+        std::cout << "\t\t" << getID((Usuario*) usuario) << ": " << getNombreUsuario((Usuario*) usuario, getApellido) << ", " << getNombreUsuario((Usuario*) usuario, getNombre) << " tiene " << getEdadUsuario((Usuario*) usuario) << " años." << std::endl;
+        fEdadPromedio += getEdadUsuario((Usuario*) usuario);
+    }
+    
+    if(getCantidadDeElementosEnLaLista(lista) != 0){
+        std::cout << "\tLa edad promedio de los clientes es: " << fEdadPromedio/(float)getCantidadDeElementosEnLaLista(lista) << std::endl;
+    }
+}
 
 /*
     PRE: Debe existir el elemento que deseo mostrar y debe ser un DatoVarietalPorGrupoEtario.
@@ -415,6 +451,7 @@ void menoresDe30Anios(ELEMENTO varietal) {
     std::cout << ((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal << ": " << std::endl;
     std::cout << "\tCantidad de ventas: " << ((DatoVarietalPorGrupoEtario*) varietal)->iCantidad_De_Ventas_Menores_De_30 << std::endl;
     std::cout << "\tCantidad de personas: " << getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) varietal)->menoresDe30) << std::endl;
+    mostrarClientesEnElGrupoEtario(((DatoVarietalPorGrupoEtario*) varietal)->menoresDe30);
     std::cout << LINEA << std::endl;
 }
 
@@ -426,6 +463,7 @@ void entre30Y50Anios(ELEMENTO varietal) {
     std::cout << ((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal << ": " << std::endl;
     std::cout << "\tCantidad de ventas: " << ((DatoVarietalPorGrupoEtario*) varietal)->iCantidad_De_Ventas_Entre_30_Y_50 << std::endl;
     std::cout << "\tCantidad de personas: " << getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) varietal)->entre30Y50) << std::endl;
+    mostrarClientesEnElGrupoEtario(((DatoVarietalPorGrupoEtario*) varietal)->entre30Y50);
     std::cout << LINEA << std::endl;
 }
 
@@ -437,6 +475,7 @@ void mayoresDe50Anios(ELEMENTO varietal) {
     std::cout << ((DatoVarietalPorGrupoEtario*) varietal)->sNombre_Del_Varietal << ": " << std::endl;
     std::cout << "\tCantidad de ventas: " << ((DatoVarietalPorGrupoEtario*) varietal)->iCantidad_De_Ventas_Mayores_De_50 << std::endl;
     std::cout << "\tCantidad de personas: " << getCantidadDeElementosEnLaLista(((DatoVarietalPorGrupoEtario*) varietal)->mayoresDe50) << std::endl;
+    mostrarClientesEnElGrupoEtario(((DatoVarietalPorGrupoEtario*) varietal)->mayoresDe50);
     std::cout << LINEA << std::endl;
 }
 
