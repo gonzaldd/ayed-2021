@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstring> // para tener strcmp
 #include <string.h>
 
 #include "ED/lista.h"
@@ -285,11 +284,11 @@ bool compararVarietalDelVino(ELEMENTO dato, ELEMENTO elemento) {
 }
 
 /*
-    PRE: Los dos datos deben ser de tipo usuario, el primero es el que deseo buscar.
+    PRE: El primer ELEMENTO debe ser un Usuario y el segundo debe ser un DatoCliente, el primero es el que deseo buscar.
     POST: Devuelvo true si ambos datos son iguales.
  */
 bool compararUsuario(ELEMENTO dato, ELEMENTO elemento) {
-    return (((DatoCliente*) dato)->cliente == ((DatoCliente*) elemento)->cliente) ? true : false;
+    return (((Usuario*) dato) == ((DatoCliente*) elemento)->cliente) ? true : false;
 }
 
 /*
@@ -297,7 +296,7 @@ bool compararUsuario(ELEMENTO dato, ELEMENTO elemento) {
     POST: Devuelvo true si ambos datos son iguales.
  */
 bool compararIDDelUsuarioOVinoConElDeLaMembresia(ELEMENTO dato, ELEMENTO elemento) {
-    return (strcmp((const char*) dato, getID((Usuario*) elemento).c_str()) == IGUAL) ? true : false;
+    return (getID((Usuario*) elemento).compare((const char*) dato) == IGUAL) ? true : false;
 }
 
 /*
@@ -337,16 +336,16 @@ Lista* varietalesQueHay(Lista* lCatalogo) {
     return lVarietales;
 }
 /*
-    PRE: Debe existir el usuario y la lista del grupo etario.
-    POST: Comparo si el usuario existe o no en la lista y si no esta en la lista lo incorporo.
+    PRE: Debe existir el DatoCliente y la lista del grupo etario.
+    POST: Comparo si el DatoCliente existe o no en la lista y si no esta en la lista lo incorporo.
  */
 void insertarUsuarioEnLaListaDeSuGrupoSiNoExisteYaEnElla(Lista* lGrupo_Etario, DatoCliente* cliente) {
     ELEMENTO dato;
 
-    if (buscarElementoEnLaLista(lGrupo_Etario, cliente, compararUsuario) != ELEMENTO_NO_ENCONTRADO) {
+    if (buscarElementoEnLaLista(lGrupo_Etario, cliente->cliente, compararUsuario) != ELEMENTO_NO_ENCONTRADO) {
 
+        obtenerElementoDeLaLista(lGrupo_Etario, buscarElementoEnLaLista(lGrupo_Etario, cliente->cliente, compararUsuario), dato);
         destruirDatoCliente(cliente);
-        obtenerElementoDeLaLista(lGrupo_Etario, buscarElementoEnLaLista(lGrupo_Etario, cliente, compararUsuario), dato);
         ((DatoCliente*) dato)->iCantidad_De_Vinos_Comprados_Del_Varietal++;
 
     } else
