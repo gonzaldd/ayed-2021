@@ -22,8 +22,8 @@ int main(int argc, char** argv) {
     Lista* lMembresia = crearLista();
     readFileAndLoad("Archivos/elecion_test.txt", lMembresia);
     
-    int maxYear, contadorTotalVinos;
-    Lista* listaVinosUltimoAnio = listaParaHacerLosRankings(lMembresia, lCatalogo, maxYear, contadorTotalVinos);
+    int maxYear;
+    Lista* listaVinosUltimoAnio = listaParaHacerLosRankings(lMembresia, lCatalogo, maxYear);
 
     std::string opcion;
     while(opcion.compare("0") != 0) {
@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
             std::cout << std::endl << std::endl << std::endl << LINEA << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\t\t\tMembresias\n" << LINEA << std::endl << LINEA << std::endl << LINEA << std::endl;
             showMembresiaList(lMembresia);
         } else if(opcion.compare("4") == 0) {
-            rankingVinosUltimoAnio(listaVinosUltimoAnio, maxYear, contadorTotalVinos);
+            rankingVinosUltimoAnio(listaVinosUltimoAnio, maxYear);
             std::cout << std::endl;
         } else if (opcion.compare("5") == 0) {
             rankingBodegasUltimoAnio(listaVinosUltimoAnio, maxYear);

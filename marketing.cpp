@@ -54,9 +54,8 @@ bool compararIdVino(ELEMENTO dato, ELEMENTO elemento) {
     return stoi(*(std::string*)dato) == stoi(((eVinos*)elemento)->id);
 }
 
-Lista* listaParaHacerLosRankings(Lista *listaAnioMembresias, Lista *listaVinos, int &maxYear, int &contadorTotalVinos) {
+Lista* listaParaHacerLosRankings(Lista *listaAnioMembresias, Lista *listaVinos, int &maxYear) {
     maxYear = 0;
-    contadorTotalVinos = 0;
     Lista *listaRanking = crearLista();
     Lista *listaMembresias = NULL;
 
@@ -113,12 +112,12 @@ Lista* listaParaHacerLosRankings(Lista *listaAnioMembresias, Lista *listaVinos, 
         }
     }
 
-    
-
     return listaRanking;
 }
 
-void rankingVinosUltimoAnio(Lista* listaRanking,  int maxYear, int contadorTotalVinos){
+void rankingVinosUltimoAnio(Lista* listaRanking,  int maxYear){
+    int contadorTotalVinos = 0;
+    
     std::cout << "Ranking de vinos (" << maxYear << ")" << std::endl;
     std::cout << "Puesto\t" << "ID\t"<< "Etiqueta\t" << "  Cantidad\t" << std::endl;
     //Ordena la lista del ranking
@@ -190,7 +189,7 @@ void rankingBodegasUltimoAnio(Lista *listaRankingVinos, int maxYear) {
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------
                                                 Ranking de varietales elegido por rango etario
  --------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-//------------------------------------------------------------------------Estructura------------------------------------------------------------------------
+//------------------------------------------------------------------------DatoCliente------------------------------------------------------------------------
 struct DatoCliente{
     Usuario* cliente;
     int iCantidad_De_Vinos_Comprados_Del_Varietal;
@@ -219,7 +218,7 @@ void destruirDatoCliente(DatoCliente* d){
     delete d;
 }
 
-//------------------------------------------------------------------------Estructura------------------------------------------------------------------------
+//-------------------------------------------------------------DatoVarietalPorGrupoEtario-------------------------------------------------------------
 struct DatoVarietalPorGrupoEtario {
     std::string sNombre_Del_Varietal;
     Lista* menoresDe30;
