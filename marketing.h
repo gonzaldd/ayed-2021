@@ -21,13 +21,13 @@ void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* 
 Lista* listaParaHacerLosRankings(Lista *listaAnioMembresias, Lista *listaVinos,  int &maxYear);
 
 /*
-    PRE: Debe existir la lista de los datos del ranking, funcion anterior, y las 2 variables de tipo int donde se almacenaron la cantidad de ventas y el año.
+    PRE: Debe existir la lista de los datos del ranking, funcion listaParaHacerLosRankings, y una variables de tipo int donde se almaceno el año.
     POST: Muestra por consola el ranking de vinos del ultimo año.
 */
 void rankingVinosUltimoAnio(Lista* listaRanking,  int maxYear);
 
 /*
-    PRE: Debe existir la lista de ranking de vinos del ultimo año y una varieble de tipo int que indique el año.
+    PRE: Debe existir la lista de los datos del ranking, funcion listaParaHacerLosRankings, y una varieble de tipo int que indique el año.
     POST: Muestra por consola el ranking de bodegas del ultimo año.
 */
 void rankingBodegasUltimoAnio(Lista *listaRankingVinos, int maxYear);
