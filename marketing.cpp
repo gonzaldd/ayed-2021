@@ -117,8 +117,8 @@ Lista* listaParaHacerLosRankings(Lista *listaAnioMembresias, Lista *listaVinos, 
 
 void rankingVinosUltimoAnio(Lista* listaRanking,  int maxYear){
     int contadorTotalVinos = 0;
-    
-    std::cout << "Ranking de vinos (" << maxYear << ")" << std::endl;
+
+    std::cout << "\nRanking de vinos (" << maxYear << ")" << std::endl;
     std::cout << "Puesto\t" << "ID\t"<< "Etiqueta\t" << "  Cantidad\t" << std::endl;
     //Ordena la lista del ranking
     reordenarLista(listaRanking, comparadorContadorRanking, descendente);
@@ -202,10 +202,10 @@ struct DatoCliente{
  */
 DatoCliente* crearDatoCliente(Usuario* cliente){
     DatoCliente* d = new DatoCliente;
-    
+
     d->cliente = cliente;
     d->iCantidad_De_Vinos_Comprados_Del_Varietal = 1;
-    
+
     return d;
 }
 
@@ -359,7 +359,7 @@ void insertarUsuarioEnLaListaDeSuGrupoSiNoExisteYaEnElla(Lista* lGrupo_Etario, D
 void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPorGrupoEtario* varietales, Usuario* usuario) {
 
     DatoCliente* cliente = crearDatoCliente(usuario);
-    
+
     if (sGrupo_Etario == "menoresDe30") {
 
         varietales->iCantidad_De_Ventas_Menores_De_30++;
@@ -479,7 +479,7 @@ void mostrarClientesEnElGrupoEtario(Lista* lista) {
         obtenerElementoDeLaLista(lista, i, cliente);
         std::cout << "\t\t" << ((DatoCliente*) cliente)->cliente->sID << ": " << ((DatoCliente*) cliente)->cliente->enNombre->sApellido << ", " << ((DatoCliente*) cliente)->cliente->enNombre->sNombre << " tiene " << ((DatoCliente*) cliente)->cliente->iEdad << " años y compró " << ((DatoCliente*) cliente)->iCantidad_De_Vinos_Comprados_Del_Varietal << " vinos de este varietal." << std::endl;
     }
-    
+
 }
 
 /*
@@ -560,7 +560,7 @@ void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* 
     std::cout << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\tVarietal por grupo etario mayores de 50 años\n" << LINEA << std::endl << LINEA << std::endl;
     reordenarLista(lVarietales, compararMayoresDe50Anios, descendente);
     mostrarElementosDeLaLista(lVarietales, mayoresDe50Anios);
-    
+
     std::cout << "\nCantidad total de ventas: " << iCantidad_Total_De_Ventas << std::endl;
 
     destruirListaYDatos(lVarietales, eliminarDatosDeVarietales);

@@ -11,7 +11,7 @@
 void eliminarDatoUsuario(ELEMENTO);
 void eliminarDatoVino(ELEMENTO);
 
-int main(int argc, char** argv) { 
+int main(int argc, char** argv) {
 
     Lista* lUsuarios = crearLista();
     cargarDatosDeUsuarioEnLaLista("Archivos/usuarios_test.txt", lUsuarios);
@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
 
     Lista* lMembresia = crearLista();
     readFileAndLoad("Archivos/elecion_test.txt", lMembresia);
-    
+
     int maxYear;
     Lista* listaVinosUltimoAnio = listaParaHacerLosRankings(lMembresia, lCatalogo, maxYear);
 
@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
         std::cout << "\t6: Ranking de varietales por grupo etario" << std::endl;
         std::cout << "\t0: Salir" << std::endl;
         std::cout << "Ingrese una opción: ";
-        
+
         getline(std::cin, opcion);
         if(opcion.compare("1") == 0) {
             std::cout << LINEA << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\t\t    Lista de usuarios\n" << LINEA << std::endl << LINEA << std::endl << LINEA << std::endl;
@@ -59,14 +59,15 @@ int main(int argc, char** argv) {
             std::cout << std::endl << std::endl << "Gracias por utilizar el programa :)";
         } else
             std::cout << "Opcion no valida\a" << std::endl << std::endl;
-        
+
         std::cout << std::endl << std::endl;
     }
-    
-    
+
+
     destruirListaYDatos(lUsuarios, eliminarDatoUsuario);
     destruirListaYDatos(lCatalogo, eliminarDatoVino);
-    
+    destruirLista(lMembresia);
+
     return EXIT_SUCCESS;
 }
 

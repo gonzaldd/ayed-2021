@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1635708083 source:/home/gonzalo/Ayed-2021/ayed-2021/main.cpp
+1635981723 source:/home/gonzalo/Ayed-2021/ayed-2021/main.cpp
 	<iostream>
 	"ED/lista.h"
 	"Usuario/usuario.h"
@@ -13,12 +13,12 @@
 1633476407 source:/home/gonzalo/Ayed-2021/ayed-2021/Lista.cpp
 	"Lista.h"
 
-1635700275 /home/gonzalo/Ayed-2021/ayed-2021/loadMembresia.h
+1635709617 /home/gonzalo/Ayed-2021/ayed-2021/loadMembresia.h
 	<iostream>
 	"ED/lista.h"
 	<string.h>
 
-1635700749 source:/home/gonzalo/Ayed-2021/ayed-2021/loadMembresia.cpp
+1635709617 source:/home/gonzalo/Ayed-2021/ayed-2021/loadMembresia.cpp
 	<fstream>
 	<algorithm>
 	"loadMembresia.h"
@@ -38,10 +38,10 @@
 	<iostream>
 	"Nodo.h"
 
-1635618462 /home/gonzalo/Ayed-2021/ayed-2021/ED/lista.h
+1635709617 /home/gonzalo/Ayed-2021/ayed-2021/ED/lista.h
 	"Nodo/Nodo.h"
 
-1634612702 /home/gonzalo/Ayed-2021/ayed-2021/ED/Nodo/Nodo.h
+1635709617 /home/gonzalo/Ayed-2021/ayed-2021/ED/Nodo/Nodo.h
 
 1633992446 source:/home/gonzalo/Desktop/ayed-2021/loadMembresia.cpp
 	<fstream>
@@ -75,11 +75,11 @@
 1633992446 /home/gonzalo/Desktop/ayed-2021/ED/pila.h
 	"Nodo/Nodo.h"
 
-1635618462 source:/home/gonzalo/Ayed-2021/ayed-2021/ED/lista.cpp
+1635709617 source:/home/gonzalo/Ayed-2021/ayed-2021/ED/lista.cpp
 	<iostream>
 	"lista.h"
 
-1635281471 source:/home/gonzalo/Ayed-2021/ayed-2021/ED/Nodo/Nodo.cpp
+1635709617 source:/home/gonzalo/Ayed-2021/ayed-2021/ED/Nodo/Nodo.cpp
 	<iostream>
 	"Nodo.h"
 
@@ -98,7 +98,7 @@
 	"ED/lista.h"
 	"archivoUsuario.h"
 
-1635618462 /home/gonzalo/Ayed-2021/ayed-2021/Usuario/usuario.h
+1635709617 /home/gonzalo/Ayed-2021/ayed-2021/Usuario/usuario.h
 	"Domicilio/domicilio.h"
 	"Nombre/nombre.h"
 
@@ -116,26 +116,26 @@
 	<iostream>
 	"nombre.h"
 
-1634612702 source:/home/gonzalo/Ayed-2021/ayed-2021/Usuario/usuario.cpp
+1635709617 source:/home/gonzalo/Ayed-2021/ayed-2021/Usuario/usuario.cpp
 	<iostream>
 	"usuario.h"
 
-1634671945 source:/home/gonzalo/Ayed-2021/ayed-2021/Rankings/Rankings.cpp
+1635709617 source:/home/gonzalo/Ayed-2021/ayed-2021/Rankings/Rankings.cpp
 	"Rankings.h"
 	"Lista.h"
 	"Vino.h"
 
-1634671945 /home/gonzalo/Ayed-2021/ayed-2021/Rankings/Rankings.h
+1635709617 /home/gonzalo/Ayed-2021/ayed-2021/Rankings/Rankings.h
 	"Vino.h"
 	"Lista.h"
 
-1635618462 /home/gonzalo/Ayed-2021/ayed-2021/Vinos/Vinos.h
+1635709617 /home/gonzalo/Ayed-2021/ayed-2021/Vinos/Vinos.h
 
-1635281471 /home/gonzalo/Ayed-2021/ayed-2021/cargarArchivosEnLista.h
+1635709617 /home/gonzalo/Ayed-2021/ayed-2021/cargarArchivosEnLista.h
 
-1635700892 /home/gonzalo/Ayed-2021/ayed-2021/marketing.h
+1635970018 /home/gonzalo/Ayed-2021/ayed-2021/marketing.h
 
-1635618462 source:/home/gonzalo/Ayed-2021/ayed-2021/cargarArchivosEnLista.cpp
+1635709617 source:/home/gonzalo/Ayed-2021/ayed-2021/cargarArchivosEnLista.cpp
 	<iostream>
 	<fstream>
 	"Usuario/usuario.h"
@@ -143,9 +143,8 @@
 	"ED/lista.h"
 	"cargarArchivosEnLista.h"
 
-1635707245 source:/home/gonzalo/Ayed-2021/ayed-2021/marketing.cpp
+1635981297 source:/home/gonzalo/Ayed-2021/ayed-2021/marketing.cpp
 	<iostream>
-	<cstring>
 	<string.h>
 	"ED/lista.h"
 	"loadMembresia.h"
@@ -154,7 +153,7 @@
 	"Vinos/Vinos.h"
 	"marketing.h"
 
-1635618462 source:/home/gonzalo/Ayed-2021/ayed-2021/Vinos/Vinos.cpp
+1635709617 source:/home/gonzalo/Ayed-2021/ayed-2021/Vinos/Vinos.cpp
 	<iostream>
 	"Vinos.h"
 
