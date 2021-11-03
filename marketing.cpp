@@ -191,6 +191,36 @@ void rankingBodegasUltimoAnio(Lista *listaRankingVinos, int maxYear) {
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------
                                                 Ranking de varietales elegido por rango etario
  --------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+//------------------------------------------------------------------------Estructura------------------------------------------------------------------------
+struct DatoCliente{
+    Usuario* cliente;
+    int iCantidad_De_Vinos_Comprados_Del_Varietal;
+};
+
+//------------------------------------------------------------------------Constructor------------------------------------------------------------------------
+/*
+    PRE: El DatoCliente no debe haber sido creado.
+    POST: El DatoCliente queda creado.
+ */
+DatoCliente* crearDatoCliente(Usuario* cliente){
+    DatoCliente* d = new DatoCliente;
+    
+    d->cliente = cliente;
+    d->iCantidad_De_Vinos_Comprados_Del_Varietal = 1;
+    
+    return d;
+}
+
+//------------------------------------------------------------------------Destructor-------------------------------------------------------------------------
+/*
+    PRE: El DatoCliente debe haber sido creado.
+    POST: El DatoClienteEsEliminado.
+ */
+void destruirDatoCliente(DatoCliente* d){
+    delete d;
+}
+
+//------------------------------------------------------------------------Estructura------------------------------------------------------------------------
 struct DatoVarietalPorGrupoEtario {
     std::string sNombre_Del_Varietal;
     Lista* menoresDe30;
@@ -222,15 +252,22 @@ DatoVarietalPorGrupoEtario* crearDatoDeVarietal(std::string sNombre_Del_Varietal
 }
 
 //------------------------------------------------------------------------Destructor-------------------------------------------------------------------------
+/*
+    PRE: Debe existir el ELEMENTO que deseo eliminar el cual debe ser un DatoCliente.
+    POST: Elimino el dato del cliente.
+ */
+void eliminarDatoCliente(ELEMENTO temp) {
+    destruirDatoCliente((DatoCliente*) temp);
+}
 
 /*
     PRE: El datoVarietalPorGrupoEtario debe haber sido creado.
     POST: El datoVarietalPorGrupoEtario es eliminado.
  */
 void destruirDatoDeVarietal(DatoVarietalPorGrupoEtario* d) {
-    destruirLista(d->menoresDe30);
-    destruirLista(d->entre30Y50);
-    destruirLista(d->mayoresDe50);
+    destruirListaYDatos(d->menoresDe30, eliminarDatoCliente);
+    destruirListaYDatos(d->entre30Y50, eliminarDatoCliente);
+    destruirListaYDatos(d->mayoresDe50, eliminarDatoCliente);
     delete d;
 }
 
@@ -252,7 +289,7 @@ bool compararVarietalDelVino(ELEMENTO dato, ELEMENTO elemento) {
     POST: Devuelvo true si ambos datos son iguales.
  */
 bool compararUsuario(ELEMENTO dato, ELEMENTO elemento) {
-    return ((Usuario*) dato == (Usuario*) elemento) ? true : false;
+    return (((DatoCliente*) dato)->cliente == ((DatoCliente*) elemento)->cliente) ? true : false;
 }
 
 /*
@@ -260,7 +297,7 @@ bool compararUsuario(ELEMENTO dato, ELEMENTO elemento) {
     POST: Devuelvo true si ambos datos son iguales.
  */
 bool compararIDDelUsuarioOVinoConElDeLaMembresia(ELEMENTO dato, ELEMENTO elemento) {
-    return (strcmp((const char*) dato, (const char*)getID((Usuario*) elemento).c_str()) == IGUAL) ? true : false;
+    return (strcmp((const char*) dato, getID((Usuario*) elemento).c_str()) == IGUAL) ? true : false;
 }
 
 /*
@@ -299,14 +336,22 @@ Lista* varietalesQueHay(Lista* lCatalogo) {
 
     return lVarietales;
 }
-
 /*
     PRE: Debe existir el usuario y la lista del grupo etario.
     POST: Comparo si el usuario existe o no en la lista y si no esta en la lista lo incorporo.
  */
-void insertarUsuarioEnLaListaDeSuGrupoSiNoExisteYaEnElla(Lista* lGrupo_Etario, Usuario* usuario) {
-    if (buscarElementoEnLaLista(lGrupo_Etario, (Usuario*) usuario, compararUsuario) == ELEMENTO_NO_ENCONTRADO)
-        insertarElementoAlFinalDeLaLista(lGrupo_Etario, (Usuario*) usuario);
+void insertarUsuarioEnLaListaDeSuGrupoSiNoExisteYaEnElla(Lista* lGrupo_Etario, DatoCliente* cliente) {
+    ELEMENTO dato;
+
+    if (buscarElementoEnLaLista(lGrupo_Etario, cliente, compararUsuario) != ELEMENTO_NO_ENCONTRADO) {
+
+        destruirDatoCliente(cliente);
+        obtenerElementoDeLaLista(lGrupo_Etario, buscarElementoEnLaLista(lGrupo_Etario, cliente, compararUsuario), dato);
+        ((DatoCliente*) dato)->iCantidad_De_Vinos_Comprados_Del_Varietal++;
+
+    } else
+        insertarElementoAlFinalDeLaLista(lGrupo_Etario, (DatoCliente*) cliente);
+
 }
 
 /*
@@ -315,20 +360,22 @@ void insertarUsuarioEnLaListaDeSuGrupoSiNoExisteYaEnElla(Lista* lGrupo_Etario, U
  */
 void insertarUsuarioEnLaListaDeSuGrupo(std::string sGrupo_Etario, DatoVarietalPorGrupoEtario* varietales, Usuario* usuario) {
 
+    DatoCliente* cliente = crearDatoCliente(usuario);
+    
     if (sGrupo_Etario == "menoresDe30") {
 
         varietales->iCantidad_De_Ventas_Menores_De_30++;
-        insertarUsuarioEnLaListaDeSuGrupoSiNoExisteYaEnElla(varietales->menoresDe30, usuario);
+        insertarUsuarioEnLaListaDeSuGrupoSiNoExisteYaEnElla(varietales->menoresDe30, cliente);
 
     } else if (sGrupo_Etario == "entre30Y50") {
 
         varietales->iCantidad_De_Ventas_Entre_30_Y_50++;
-        insertarUsuarioEnLaListaDeSuGrupoSiNoExisteYaEnElla(varietales->entre30Y50, usuario);
+        insertarUsuarioEnLaListaDeSuGrupoSiNoExisteYaEnElla(varietales->entre30Y50, cliente);
 
     } else {
 
         varietales->iCantidad_De_Ventas_Mayores_De_50++;
-        insertarUsuarioEnLaListaDeSuGrupoSiNoExisteYaEnElla(varietales->mayoresDe50, usuario);
+        insertarUsuarioEnLaListaDeSuGrupoSiNoExisteYaEnElla(varietales->mayoresDe50, cliente);
 
     }
 
@@ -409,11 +456,11 @@ int compararMayoresDe50Anios(ELEMENTO elemento1, ELEMENTO elemento2) {
     PRE: Deben existir los 2 elementos que deseo comparar.
     POST: Comparo los datos e indico si son mayores, menores e iguales.
  */
-int compararIDClientes(ELEMENTO elemento1, ELEMENTO elemento2) {
+int compararComprasClientes(ELEMENTO elemento1, ELEMENTO elemento2) {
     int iResultado;
-    if (((Usuario*) elemento1)->sID < ((Usuario*) elemento2)->sID) {
+    if (((DatoCliente*)elemento1)->iCantidad_De_Vinos_Comprados_Del_Varietal < ((DatoCliente*)elemento2)->iCantidad_De_Vinos_Comprados_Del_Varietal) {
         iResultado = MENOR;
-    } else if (((Usuario*) elemento1)->sID > ((Usuario*)elemento2)->sID) {
+    } else if (((DatoCliente*)elemento1)->iCantidad_De_Vinos_Comprados_Del_Varietal > ((DatoCliente*)elemento2)->iCantidad_De_Vinos_Comprados_Del_Varietal) {
         iResultado = MAYOR;
     } else
         iResultado = IGUAL;
@@ -422,25 +469,19 @@ int compararIDClientes(ELEMENTO elemento1, ELEMENTO elemento2) {
 }
 
 //------------------------------------------------------------------------Mostrar datos---------------------------------------------------------------------
-
 /*
     PRE: Debe existir la lista de clientes que compraron el varietal del DatoVarietalPorGrupoEtario.
     POST: Imprimo los datos de los clientes que compraron dicho varietal.
  */
 void mostrarClientesEnElGrupoEtario(Lista* lista) {
-    ELEMENTO usuario;
-    float fEdadPromedio = 0;
+    ELEMENTO cliente;
 
-    reordenarLista(lista, compararIDClientes, ascendente);
+    reordenarLista(lista, compararComprasClientes, descendente);
     for (int i = 0; i < getCantidadDeElementosEnLaLista(lista); i++) {
-        obtenerElementoDeLaLista(lista, i, usuario);
-        std::cout << "\t\t" << getID((Usuario*) usuario) << ": " << getNombreUsuario((Usuario*) usuario, getApellido) << ", " << getNombreUsuario((Usuario*) usuario, getNombre) << " tiene " << getEdadUsuario((Usuario*) usuario) << " años." << std::endl;
-        fEdadPromedio += getEdadUsuario((Usuario*) usuario);
+        obtenerElementoDeLaLista(lista, i, cliente);
+        std::cout << "\t\t" << ((DatoCliente*) cliente)->cliente->sID << ": " << ((DatoCliente*) cliente)->cliente->enNombre->sApellido << ", " << ((DatoCliente*) cliente)->cliente->enNombre->sNombre << " tiene " << ((DatoCliente*) cliente)->cliente->iEdad << " años y compró " << ((DatoCliente*) cliente)->iCantidad_De_Vinos_Comprados_Del_Varietal << " vinos de este varietal." << std::endl;
     }
     
-    if(getCantidadDeElementosEnLaLista(lista) != 0){
-        std::cout << "\tLa edad promedio de los clientes es: " << fEdadPromedio/(float)getCantidadDeElementosEnLaLista(lista) << std::endl;
-    }
 }
 
 /*
@@ -493,6 +534,7 @@ void eliminarDatosDeVarietales(ELEMENTO temp) {
 
 void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* lCatalogos) {
     Lista* lVarietales = varietalesQueHay(lCatalogos);
+    int iCantidad_Total_De_Ventas = 0;
 
     for (int i = 0; i < getCantidadDeElementosEnLaLista(lMembresia); i++) {
         ELEMENTO innerElemento;
@@ -503,8 +545,11 @@ void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* 
             ELEMENTO membresia;
             obtenerElementoDeLaLista(innerList, x, membresia);
 
-            for (int j = 0; j < CANT_SELECCION; j++)
+            for (int j = 0; j < CANT_SELECCION; j++) {
                 identificarVarietalDelVino((Membresia*) membresia, j, lUsuario, lCatalogos, lVarietales);
+                iCantidad_Total_De_Ventas++;
+            }
+
         }
     }
 
@@ -517,6 +562,8 @@ void rankingVarietalesPorGrupoEtario(Lista* lMembresia, Lista* lUsuario, Lista* 
     std::cout << std::endl << LINEA << std::endl << LINEA << "\n\t\t\t\tVarietal por grupo etario mayores de 50 años\n" << LINEA << std::endl << LINEA << std::endl;
     reordenarLista(lVarietales, compararMayoresDe50Anios, descendente);
     mostrarElementosDeLaLista(lVarietales, mayoresDe50Anios);
+    
+    std::cout << "\nCantidad total de ventas: " << iCantidad_Total_De_Ventas << std::endl;
 
     destruirListaYDatos(lVarietales, eliminarDatosDeVarietales);
 }
