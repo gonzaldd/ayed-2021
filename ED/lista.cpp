@@ -2,8 +2,6 @@
 
 #include "lista.h"
 
-#define ELEMENTO_NO_ENCONTRADO -1
-
 //-----------------------------------------------------------Constructor-------------------------------------------------------
 
 Lista* crearLista() {
