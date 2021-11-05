@@ -45,7 +45,7 @@ bool listaEstaVacia(Lista*);
 
 /*
     PRE: La lista debe haber sido creada.
-    POST: Busca un elemento en la lista y me indica en que posicion se encuetra.
+    POST: Busca un elemento en la lista y me indica en que posicion se encuetra y -1 en caso de no existir el dato en la lista.
 */
 int posicionElementoEnLaLista(Lista*, ELEMENTO);
 
@@ -134,8 +134,9 @@ bool descendente(int);
 void reordenarLista(Lista*, int comparar(ELEMENTO elemento1, ELEMENTO elemento2), bool criterio(int));
 
 /*
-    PRE: La lista debe haber sido creada, debe existir el dato que deseo buscar y, además, debe existir una funcion que se encargue de comparar si 2 elementos son o no iguales (pueden ser TD o TDA).
-    POST: Indico la posicion de donde se encuentra el elemento en la lista o ELEMENTO_NO_ENCONTRADO(-1) si es que la lista no existe.
+    PRE: La lista debe haber sido creada, debe existir el dato que deseo buscar y, además, debe existir una funcion que se encargue de comparar si 2 elementos son o no iguales
+ *  preferentemente se lo utiliza para comparar TDA si deseo comparar en base a 1 TD que lo forma (atributo), en caso de buscar elementos en una lista de TD o TDA utilizar mejor la funcion posicionElementoEnLaLista.
+    POST: Indico la posicion de donde se encuentra el elemento en la lista o ELEMENTO_NO_ENCONTRADO(-1) si es que en la lista no existe.
  */
 int buscarElementoEnLaLista(Lista*, ELEMENTO dato_Buscado, bool comparar(ELEMENTO dato_Buscado, ELEMENTO elemento));
 
